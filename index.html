@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="sk">
 <head>
   <meta charset="UTF-8" />
@@ -122,11 +122,21 @@
       height: 68px; gap: 2rem;
     }
     .nav-logo {
-      font-size: 1.4rem; font-weight: 800;
-      color: var(--white); text-decoration: none;
-      letter-spacing: -.01em; display: flex; align-items: center; gap: .55rem;
-    }
-    .nav-logo-icon { display: none; }
+  font-size: 1.4rem; font-weight: 800;
+  color: var(--white); text-decoration: none;
+  letter-spacing: -.02em; display: flex; align-items: center; gap: 0;
+}
+.logo-icon {
+  height: 1em; width: auto; flex-shrink: 0;
+  margin-right: .5rem;
+  transition: margin .45s cubic-bezier(.4,0,.2,1), transform .45s cubic-bezier(.4,0,.2,1);
+}
+.logo-text {
+  max-width: 14em; overflow: hidden; white-space: nowrap;
+  transition: max-width .5s cubic-bezier(.4,0,.2,1), opacity .3s;
+}
+nav.scrolled .logo-text { max-width: 0; opacity: 0; }
+nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
     .nav-links {
       display: flex; align-items: center; gap: 2rem;
       list-style: none;
@@ -520,7 +530,7 @@
       margin-bottom: 1rem;
     }
     .seg-icon {
-      font-size: 2.2rem; margin-bottom: 1rem;
+      font-size: 1.4rem; margin-bottom: 1rem;
     }
     .segment-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .7rem; }
     .segment-card p  { font-size: .87rem; color: var(--grey); line-height: 1.65; margin-bottom: 1.2rem; }
@@ -883,7 +893,7 @@
   <div class="container">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
-        <svg width="32" height="32" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lb" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#3B0764"/></linearGradient><linearGradient id="ll" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#C4B5FD"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient></defs><path fill-rule="evenodd" d="M5,3 L5,41 L19,41 C30,41 36,36 36,30 C36,25 32,22 27,22 C32,22 36,19 36,13 C36,7 30,3 19,3 Z M11,9 L20,9 C26,9 29,11 29,14 C29,17 26,19 20,19 L11,19 Z M11,25 L20,25 C27,25 30,27 30,30 C30,33 27,35 20,35 L11,35 Z" fill="url(#lb)"/><path d="M28,3 L17,24 L23,24 L16,41 L35,20 L28,20 Z" fill="url(#ll)"/></svg>BCP HOLDING
+        <svg class="logo-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M22,3 A19,19 0 1 0 22,41 A19,19 0 1 0 22,3 Z M25,6 L13,24 L20,24 L17,38 L31,22 L24,22 Z" fill="white"/></svg><span class="logo-text">BCP HOLDING</span>
       </a>
 
       <ul class="nav-links">
@@ -1464,7 +1474,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="#" class="nav-logo" style="display:inline-flex;margin-bottom:.5rem;">
-          <svg width="32" height="32" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lb" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#3B0764"/></linearGradient><linearGradient id="ll" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#C4B5FD"/><stop offset="100%" stop-color="#8B5CF6"/></linearGradient></defs><path fill-rule="evenodd" d="M5,3 L5,41 L19,41 C30,41 36,36 36,30 C36,25 32,22 27,22 C32,22 36,19 36,13 C36,7 30,3 19,3 Z M11,9 L20,9 C26,9 29,11 29,14 C29,17 26,19 20,19 L11,19 Z M11,25 L20,25 C27,25 30,27 30,30 C30,33 27,35 20,35 L11,35 Z" fill="url(#lb)"/><path d="M28,3 L17,24 L23,24 L16,41 L35,20 L28,20 Z" fill="url(#ll)"/></svg>BCP HOLDING
+          <svg class="logo-icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M22,3 A19,19 0 1 0 22,41 A19,19 0 1 0 22,3 Z M25,6 L13,24 L20,24 L17,38 L31,22 L24,22 Z" fill="white"/></svg><span class="logo-text">BCP HOLDING</span>
         </a>
         <p>Spoľahlivé silnoprúdové aj slaboprúdové elektroinštalácie pre bytové, komerčné aj priemyselné projekty na celom Slovensku.</p>
       </div>
@@ -1829,6 +1839,15 @@
       });
     })
     .catch(function () {});
+})();
+</script>
+<script>
+(function(){
+  var nav=document.querySelector('nav');
+  if(!nav)return;
+  window.addEventListener('scroll',function(){
+    nav.classList.toggle('scrolled',window.scrollY>80);
+  },{passive:true});
 })();
 </script>
 </body>
