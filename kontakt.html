@@ -141,12 +141,7 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
       border:1px solid var(--border);
       height:320px; position:relative;
       background:var(--card-bg);
-      display:flex; align-items:center; justify-content:center;
     }
-    .map-placeholder { text-align:center; color:var(--grey); }
-    .map-placeholder .map-icon { font-size:2.5rem; margin-bottom:.75rem; }
-    .map-placeholder p { font-size:.9rem; }
-    .map-placeholder strong { color:var(--white); }
 
     /* FAQ */
     .faq-section { padding:4rem 0 5rem; border-top:1px solid rgba(255,255,255,.06); }
@@ -359,13 +354,13 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
 <section class="map-section">
   <div class="container">
     <div class="map-wrap">
-      <!-- Tu vložte Google Maps iframe, napr.:
-      <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="320" style="border:0;" allowfullscreen loading="lazy"></iframe>
-      -->
-      <div class="map-placeholder">
-        <div class="map-icon">🗺️</div>
-        <p>Tu bude mapa.<br><strong>Vložte Google Maps iframe.</strong></p>
-      </div>
+      <iframe
+        src="https://maps.google.com/maps?q=Domov%C3%A9+role+19006%2F65A%2C+82105+Bratislava&t=&z=16&ie=UTF8&iwloc=&output=embed"
+        width="100%" height="100%"
+        style="border:0; display:block;"
+        allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
     </div>
   </div>
 </section>
