@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Máme nový web a novú vizuálnu identitu | BCP HOLDING</title>
+  <meta name="description" content="BCP HOLDING predstavuje nový web a obnovenú vizuálnu identitu. Moderný dizajn, prehľadná štruktúra a nové online portfólio realizácií." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black:#07001f; --purple:#6e45ff; --purple-2:#a990ff; --purple-3:#c6b5ff;
+      --green:#3dfd98; --white:#ffffff; --grey:#9895a1;
+      --border:rgba(110,69,255,0.25); --card-bg:rgba(255,255,255,0.03);
+    }
+    html { scroll-behavior: smooth; }
+    body { padding-top: 68px; background: var(--black); color: var(--white); font-family: 'Plus Jakarta Sans', Arial, sans-serif; font-size: 1rem; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--black); } ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+    body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:9999; opacity:.025; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+    .orb-purple { background: rgba(110,69,255,.22); }
+    .orb-green  { background: rgba(61,253,152,.14); }
+    .txt-green { color: var(--green); } .txt-purple { color: var(--purple-2); }
+
+    .badge { display:inline-flex; align-items:center; gap:.45rem; background:rgba(110,69,255,.12); border:1px solid rgba(110,69,255,.35); color:var(--purple-3); padding:.3rem .85rem; border-radius:999px; font-size:.78rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+    .btn { display:inline-flex; align-items:center; gap:.5rem; padding:.75rem 1.6rem; border-radius:10px; font-size:.9rem; font-weight:600; cursor:pointer; transition:all .22s ease; text-decoration:none; border:none; letter-spacing:.02em; }
+    .btn-primary { background:var(--purple); color:var(--white); box-shadow:0 0 28px rgba(110,69,255,.45); }
+    .btn-primary:hover { background:#7e58ff; transform:translateY(-2px); }
+    .btn-ghost { background:transparent; color:var(--white); border:1px solid rgba(255,255,255,.18); }
+    .btn-ghost:hover { border-color:var(--purple-3); color:var(--purple-3); transform:translateY(-2px); }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; border-bottom:1px solid rgba(255,255,255,.06); backdrop-filter:blur(18px); background:rgba(7,0,31,.75); }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; height:68px; gap:2rem; }
+    .nav-logo { font-size:1.1rem; font-weight:800; color:var(--white); text-decoration:none; letter-spacing:-.01em; display:flex; align-items:center; gap:.5rem; }
+    .nav-logo-icon { width:32px; height:32px; background:var(--purple); border-radius:8px; display:grid; place-items:center; }
+    .nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
+    .nav-links a { color:var(--grey); text-decoration:none; font-size:.88rem; font-weight:500; transition:color .2s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--white); }
+    @media (max-width:768px) { .nav-links { display:none; } }
+
+    /* BREADCRUMB */
+    .breadcrumb-bar { padding: 2rem 0 0; }
+    .breadcrumb { display:flex; align-items:center; gap:.5rem; font-size:.8rem; color:var(--grey); padding:.6rem 0; flex-wrap:wrap; }
+    .breadcrumb a { color:var(--grey); text-decoration:none; transition:color .2s; }
+    .breadcrumb a:hover { color:var(--white); }
+    .breadcrumb-sep { opacity:.4; }
+
+    /* ARTICLE HERO */
+    .article-hero { padding:1.5rem 0 3rem; position:relative; overflow:hidden; border-bottom:1px solid rgba(255,255,255,.06); }
+    .article-hero .container { position:relative; z-index:2; }
+    .article-hero .cat-badge {
+      display:inline-block; font-size:.72rem; font-weight:600;
+      text-transform:uppercase; letter-spacing:.06em;
+      padding:.3rem .85rem; border-radius:999px; margin-bottom:1rem;
+      background:rgba(110,69,255,.2); color:var(--purple-3);
+      border:1px solid rgba(110,69,255,.35);
+    }
+    .article-hero h1 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; letter-spacing:-.03em; line-height:1.2; margin-bottom:1.2rem; max-width:780px; }
+    .article-meta { display:flex; align-items:center; gap:1.5rem; font-size:.82rem; color:var(--grey); flex-wrap:wrap; margin-bottom:2rem; }
+    .article-meta span { display:flex; align-items:center; gap:.35rem; }
+    .article-cover { width:100%; aspect-ratio:21/9; object-fit:cover; border-radius:16px; border:1px solid rgba(255,255,255,.08); display:block; }
+    @media (max-width:600px) { .article-cover { aspect-ratio:16/9; } }
+
+    /* ARTICLE LAYOUT */
+    .article-layout {
+      padding:3.5rem 0 5rem; position:relative; overflow:hidden;
+    }
+    .article-inner {
+      display:grid; grid-template-columns:1fr 300px; gap:4rem; align-items:start;
+    }
+    @media (max-width:860px) { .article-inner { grid-template-columns:1fr; gap:3rem; } }
+
+    /* Article body */
+    .article-body h2 { font-size:1.4rem; font-weight:800; letter-spacing:-.025em; margin:2.2rem 0 .8rem; line-height:1.3; }
+    .article-body h2:first-child { margin-top:0; }
+    .article-body h3 { font-size:1.1rem; font-weight:700; margin:1.8rem 0 .6rem; }
+    .article-body p { color:var(--grey); font-size:.97rem; line-height:1.8; margin-bottom:1rem; }
+    .article-body ul, .article-body ol { margin:0 0 1.2rem 1.2rem; display:flex; flex-direction:column; gap:.45rem; }
+    .article-body li { color:var(--grey); font-size:.95rem; line-height:1.7; }
+    .article-body strong { color:var(--white); font-weight:700; }
+    .article-body a { color:var(--green); text-decoration:none; border-bottom:1px solid rgba(61,253,152,.3); transition:border-color .2s; }
+    .article-body a:hover { border-color:var(--green); }
+    .article-highlight {
+      background:rgba(110,69,255,.08); border:1px solid rgba(110,69,255,.25);
+      border-left:3px solid var(--purple-2);
+      border-radius:0 12px 12px 0; padding:1.1rem 1.4rem;
+      margin:1.5rem 0;
+    }
+    .article-highlight p { color:var(--purple-3); margin:0; font-style:italic; font-size:.95rem; }
+
+    .article-tags { margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,.06); display:flex; flex-wrap:wrap; gap:.45rem; align-items:center; }
+    .article-tags span { font-size:.78rem; color:var(--grey); }
+    .tag-chip { font-size:.75rem; font-weight:600; padding:.25rem .75rem; border-radius:999px; background:rgba(110,69,255,.1); border:1px solid rgba(110,69,255,.25); color:var(--purple-3); }
+
+    /* Share */
+    .article-share { margin-top:2rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,.06); display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+    .share-label { font-size:.82rem; color:var(--grey); }
+    .share-btn { display:inline-flex; align-items:center; gap:.4rem; padding:.4rem .9rem; border-radius:8px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--grey); font-family:inherit; font-size:.8rem; font-weight:600; cursor:pointer; transition:all .2s; text-decoration:none; }
+    .share-btn:hover { border-color:var(--purple-2); color:var(--white); }
+
+    /* Sidebar */
+    .article-sidebar { position:sticky; top:96px; display:flex; flex-direction:column; gap:1.25rem; }
+    .sidebar-card { background:var(--card-bg); border:1px solid var(--border); border-radius:14px; padding:1.4rem; }
+    .sidebar-card h3 { font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--grey); margin-bottom:1rem; }
+    .sb-info-row { display:flex; flex-direction:column; gap:.15rem; padding:.6rem 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .sb-info-row:last-of-type { border-bottom:none; }
+    .sb-info-label { font-size:.7rem; color:var(--grey); text-transform:uppercase; letter-spacing:.05em; }
+    .sb-info-value { font-size:.88rem; font-weight:600; }
+
+    .sidebar-cta .btn { width:100%; justify-content:center; font-size:.88rem; margin-bottom:.6rem; }
+
+    /* Related news */
+    .related-section { padding:3rem 0 5rem; border-top:1px solid rgba(255,255,255,.06); }
+    .related-section h2 { font-size:1.3rem; font-weight:800; letter-spacing:-.02em; margin-bottom:1.5rem; }
+    .related-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+    @media (max-width:760px) { .related-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:480px) { .related-grid { grid-template-columns:1fr; } }
+    .rel-card { background:var(--card-bg); border:1px solid var(--border); border-radius:14px; overflow:hidden; text-decoration:none; color:inherit; transition:transform .25s, border-color .25s; display:block; }
+    .rel-card:hover { transform:translateY(-4px); border-color:rgba(110,69,255,.55); }
+    .rel-img { aspect-ratio:16/9; overflow:hidden; }
+    .rel-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s; }
+    .rel-card:hover .rel-img img { transform:scale(1.05); }
+    .rel-body { padding:1rem 1.1rem; }
+    .rel-cat { font-size:.7rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--green); margin-bottom:.35rem; }
+    .rel-title { font-size:.9rem; font-weight:700; line-height:1.4; }
+    .rel-date { font-size:.75rem; color:var(--grey); margin-top:.3rem; }
+
+    /* FOOTER */
+    footer { border-top:1px solid rgba(255,255,255,.07); padding:3rem 0 2rem; }
+    .footer-grid { display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:3rem; margin-bottom:3rem; }
+    @media (max-width:860px) { .footer-grid { grid-template-columns:1fr 1fr; gap:2rem; } }
+    @media (max-width:480px) { .footer-grid { grid-template-columns:1fr; gap:1.5rem; } }
+    .footer-brand p { font-size:.85rem; color:var(--grey); line-height:1.7; margin-top:.8rem; max-width:240px; }
+    .footer-col h4 { font-size:.82rem; font-weight:700; color:var(--white); margin-bottom:1rem; letter-spacing:.04em; text-transform:uppercase; }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
+    .footer-col ul li a { font-size:.85rem; color:var(--grey); text-decoration:none; transition:color .2s; }
+    .footer-col ul li a:hover { color:var(--white); }
+    .footer-bottom { display:flex; align-items:center; justify-content:space-between; padding-top:2rem; border-top:1px solid rgba(255,255,255,.06); font-size:.8rem; color:var(--grey); }
+    @media (max-width:580px) { .footer-bottom { flex-direction:column; gap:1rem; text-align:center; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        BCP HOLDING
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#sluzby">Služby</a></li>
+        <li><a href="realizacie.html">Realizácie</a></li>
+        <li><a href="index.html#segmenty">Pre koho</a></li>
+        <li><a href="index.html#postup">Ako pracujeme</a></li>
+        <li><a href="novinky.html" class="active">Novinky</a></li>
+        <li><a href="index.html#o-nas">O nás</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <a href="kontakt.html" class="btn btn-primary">Nezáväzná ponuka</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-bar">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Domov</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="novinky.html">Novinky</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Máme nový web a novú vizuálnu identitu</span>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLE HERO -->
+<section class="article-hero">
+  <div class="orb orb-purple" style="width:500px;height:500px;top:-150px;left:50%;transform:translateX(-50%);"></div>
+  <div class="container">
+    <span class="cat-badge">Spoločnosť</span>
+    <h1>Máme nový web a<br><span class="txt-green">novú vizuálnu identitu</span></h1>
+    <div class="article-meta">
+      <span>📅 16. marca 2026</span>
+      <span>✍️ BCP HOLDING</span>
+      <span>⏱ 2 min čítania</span>
+    </div>
+    <img
+      class="article-cover"
+      src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1400&h=600&q=80"
+      alt="Nový web BCP HOLDING — vizuálna identita"
+    />
+  </div>
+</section>
+
+<!-- ARTICLE CONTENT + SIDEBAR -->
+<section class="article-layout">
+  <div class="orb orb-green" style="width:350px;height:350px;top:100px;right:-80px;"></div>
+  <div class="container">
+    <div class="article-inner">
+
+      <!-- BODY -->
+      <article class="article-body">
+
+        <h2>Nový web je online</h2>
+        <p>
+          S hrdosťou oznamujeme spustenie nového webu BCP HOLDING. Po niekoľkých mesiacoch príprav predstavujeme modernú digitálnu identitu, ktorá odráža to, čo robíme najlepšie — kvalitné a spoľahlivé elektroinštalácie na celom Slovensku.
+        </p>
+        <p>
+          Nový web prináša prehľadnejšiu štruktúru, rýchlejší prístup k informáciám o našich službách a online portfólio reálnych realizácií. Každý klient si teraz môže jednoducho prezrieť naše projekty a zistiť, čo pre neho dokážeme urobiť.
+        </p>
+
+        <h2>Čo sme zmenili</h2>
+        <ul>
+          <li>Moderný dizajn zodpovedajúci štandardom roku 2026</li>
+          <li>Nová vizuálna identita — farby, typografia, grafický štýl</li>
+          <li>Portfólio reálnych realizácií — Domové role, Avion, Michalovce</li>
+          <li>Prehľadná prezentácia všetkých služieb (silnoprúd a slaboprúd)</li>
+          <li>Jednoduchý kontaktný formulár pre nezáväznú ponuku</li>
+        </ul>
+
+        <div class="article-highlight">
+          <p>„Nový web je odrazom toho, kam smerujeme — profesionálna spoločnosť s jasnými hodnotami a reálnymi výsledkami." — BCP HOLDING s.r.o.</p>
+        </div>
+
+        <h2>Navštívte nás</h2>
+        <p>
+          Pozrite si naše <a href="realizacie.html">realizácie</a>, zoznámte sa s našimi <a href="index.html#sluzby">službami</a> a ak máte projekt, neváhajte nás <a href="kontakt.html">kontaktovať</a>. Odpovieme do 24 hodín.
+        </p>
+
+        <div class="article-tags">
+          <span>Témy:</span>
+          <span class="tag-chip">Spoločnosť</span>
+          <span class="tag-chip">Nový web</span>
+          <span class="tag-chip">Vizuálna identita</span>
+          <span class="tag-chip">BCP HOLDING</span>
+        </div>
+
+        <div class="article-share">
+          <span class="share-label">Zdieľať:</span>
+          <a href="#" class="share-btn">🔗 Skopírovať odkaz</a>
+          <a href="#" class="share-btn">in LinkedIn</a>
+          <a href="#" class="share-btn">f Facebook</a>
+        </div>
+
+      </article>
+
+      <!-- SIDEBAR -->
+      <aside class="article-sidebar">
+
+        <div class="sidebar-card">
+          <h3>O článku</h3>
+          <div class="sb-info-row">
+            <span class="sb-info-label">Dátum</span>
+            <span class="sb-info-value">16. marca 2026</span>
+          </div>
+          <div class="sb-info-row">
+            <span class="sb-info-label">Kategória</span>
+            <span class="sb-info-value">Spoločnosť</span>
+          </div>
+          <div class="sb-info-row">
+            <span class="sb-info-label">Autor</span>
+            <span class="sb-info-value">BCP HOLDING s.r.o.</span>
+          </div>
+        </div>
+
+        <div class="sidebar-card sidebar-cta">
+          <h3>Máte projekt?</h3>
+          <a href="kontakt.html" class="btn btn-primary">Kontaktujte nás</a>
+          <a href="realizacie.html" class="btn btn-ghost">Pozrieť realizácie</a>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED ARTICLES -->
+<section class="related-section">
+  <div class="container">
+    <h2>Ďalšie <span class="txt-green">novinky</span></h2>
+    <div class="related-grid">
+      <a href="realizacie.html" class="rel-card">
+        <div class="rel-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=500&h=280&q=80" alt="Realizácie BCP HOLDING" /></div>
+        <div class="rel-body">
+          <div class="rel-cat">Realizácie</div>
+          <div class="rel-title">Pozrite si naše realizácie</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="display:inline-flex;margin-bottom:.5rem;">
+          <div class="nav-logo-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          BCP HOLDING
+        </a>
+        <p>Spoľahlivé silnoprúdové aj slaboprúdové elektroinštalácie pre bytové, komerčné aj priemyselné projekty na celom Slovensku.</p>
+      </div>
+      <div class="footer-col"><h4>Služby</h4><ul>
+        <li><a href="index.html#sluzby">Silnoprúdové inštalácie</a></li>
+        <li><a href="index.html#sluzby">Slaboprúdové systémy</a></li>
+        <li><a href="index.html#sluzby">Verejné osvetlenie</a></li>
+        <li><a href="index.html#sluzby">EPS a HSP</a></li>
+        <li><a href="index.html#sluzby">KS · Kamerový systém</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Navigácia</h4><ul>
+        <li><a href="realizacie.html">Realizácie</a></li>
+        <li><a href="novinky.html">Novinky</a></li>
+        <li><a href="index.html#segmenty">Pre koho</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Kontakt</h4><ul>
+        <li><a href="mailto:info@bcpholding.sk">info@bcpholding.sk</a></li>
+        <li><a href="tel:+421910455300">+421 910 455 300</a></li>
+        <li><a href="kontakt.html">Nezáväzná ponuka</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 BCP HOLDING s.r.o. Všetky práva vyhradené.</span>
+      <span>Profesionálne elektroinštalácie · Slovensko</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

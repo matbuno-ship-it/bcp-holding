@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Domové role — Elektroinštalácia | BCP HOLDING</title>
+  <meta name="description" content="Realizácia silnoprúdových a slaboprúdových elektroinštalácií pre projekt Domové role v Bratislave. Klient: EHR STAV, s.r.o. BCP HOLDING s.r.o." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #07001f;
+      --black-2: #0a0028;
+      --black-3: #0e0035;
+      --purple:  #6e45ff;
+      --purple-2:#a990ff;
+      --purple-3:#c6b5ff;
+      --green:   #3dfd98;
+      --white:   #ffffff;
+      --grey:    #9895a1;
+      --border:  rgba(110,69,255,0.25);
+      --card-bg: rgba(255,255,255,0.03);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      padding-top: 68px;
+      background-color: var(--black);
+      color: var(--white);
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+      font-size: 1rem; line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 3px; }
+
+    body::after {
+      content: ''; position: fixed; inset: 0;
+      pointer-events: none; z-index: 9999; opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+    .orb-purple { background: rgba(110,69,255,.22); }
+    .orb-green  { background: rgba(61,253,152,.14); }
+    .txt-green  { color: var(--green); }
+    .txt-purple { color: var(--purple-2); }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: .45rem;
+      background: rgba(110,69,255,.12); border: 1px solid rgba(110,69,255,.35);
+      color: var(--purple-3); padding: .3rem .85rem; border-radius: 999px;
+      font-size: .78rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.6rem; border-radius: 10px;
+      font-size: .9rem; font-weight: 600; cursor: pointer;
+      transition: all .22s ease; text-decoration: none; border: none; letter-spacing: .02em;
+    }
+    .btn-primary { background: var(--purple); color: var(--white); box-shadow: 0 0 28px rgba(110,69,255,.45); }
+    .btn-primary:hover { background: #7e58ff; transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,.18); }
+    .btn-ghost:hover { border-color: var(--purple-3); color: var(--purple-3); transform: translateY(-2px); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      backdrop-filter: blur(18px); background: rgba(7,0,31,.75);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 2rem; }
+    .nav-logo {
+      font-size: 1.1rem; font-weight: 800; color: var(--white);
+      text-decoration: none; letter-spacing: -.01em; display: flex; align-items: center; gap: .5rem;
+    }
+    .nav-logo-icon { width: 32px; height: 32px; background: var(--purple); border-radius: 8px; display: grid; place-items: center; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--grey); text-decoration: none; font-size: .88rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb-bar { padding: 2rem 0 0; background: transparent; }
+    .breadcrumb {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .8rem; color: var(--grey); padding: .6rem 0;
+    }
+    .breadcrumb a { color: var(--grey); text-decoration: none; transition: color .2s; }
+    .breadcrumb a:hover { color: var(--white); }
+    .breadcrumb-sep { opacity: .4; }
+
+    /* ── PAGE HERO ── */
+    .proj-hero {
+      padding: 2rem 0 3.5rem;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .proj-hero .container { position: relative; z-index: 2; }
+    .proj-hero-inner {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 2rem; align-items: start;
+    }
+    @media (max-width: 700px) { .proj-hero-inner { grid-template-columns: 1fr; } }
+
+    .proj-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -.03em;
+      line-height: 1.15; margin: .8rem 0 1rem;
+    }
+    .proj-hero-meta {
+      display: flex; flex-wrap: wrap; gap: .6rem; align-items: center;
+    }
+    .meta-pill {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .8rem; color: var(--grey);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      padding: .3rem .8rem; border-radius: 999px;
+    }
+    .meta-pill strong { color: var(--white); font-weight: 600; }
+
+    /* ── GALLERY ── */
+    .gallery-section { padding: 3rem 0; position: relative; overflow: hidden; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 220px;
+      gap: .75rem;
+    }
+    .gallery-grid .g-featured {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    @media (max-width: 700px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 160px; }
+      .gallery-grid .g-featured { grid-column: span 2; grid-row: span 1; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+      .gallery-grid .g-featured { grid-column: span 1; }
+    }
+
+    .g-item {
+      position: relative; overflow: hidden; border-radius: 12px;
+      cursor: pointer; border: 1px solid rgba(255,255,255,.08);
+    }
+    .g-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+    .g-item:hover img { transform: scale(1.06); }
+    .g-item-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0);
+      display: grid; place-items: center;
+      transition: background .25s;
+    }
+    .g-item:hover .g-item-overlay { background: rgba(110,69,255,.25); }
+    .g-zoom-icon {
+      opacity: 0; transform: scale(.8);
+      transition: opacity .25s, transform .25s;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,.15); backdrop-filter: blur(8px);
+      display: grid; place-items: center;
+      font-size: 1.1rem;
+    }
+    .g-item:hover .g-zoom-icon { opacity: 1; transform: scale(1); }
+
+    /* ── CONTENT ── */
+    .content-section { padding: 3rem 0 4rem; }
+    .content-layout {
+      display: grid; grid-template-columns: 1fr 320px;
+      gap: 3.5rem; align-items: start;
+    }
+    @media (max-width: 860px) { .content-layout { grid-template-columns: 1fr; } }
+
+    .proj-text h2 {
+      font-size: 1.5rem; font-weight: 800; letter-spacing: -.025em;
+      margin-bottom: 1rem; line-height: 1.3;
+    }
+    .proj-text p {
+      color: var(--grey); font-size: .95rem; line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+    .proj-text h3 {
+      font-size: 1.05rem; font-weight: 700; margin: 1.8rem 0 .8rem;
+    }
+    .proj-text ul {
+      list-style: none; display: flex; flex-direction: column; gap: .6rem;
+      margin-bottom: 1.2rem;
+    }
+    .proj-text ul li {
+      display: flex; align-items: flex-start; gap: .7rem;
+      font-size: .9rem; color: var(--grey); line-height: 1.5;
+    }
+    .proj-text ul li::before {
+      content: '✓'; flex-shrink: 0;
+      width: 20px; height: 20px; border-radius: 6px;
+      background: rgba(61,253,152,.12); border: 1px solid rgba(61,253,152,.3);
+      color: var(--green); display: grid; place-items: center;
+      font-size: .7rem; font-weight: 800; margin-top: 1px;
+    }
+    .tags-wrap { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.5rem; }
+    .tag-chip {
+      font-size: .75rem; font-weight: 600;
+      padding: .25rem .75rem; border-radius: 999px;
+      background: rgba(110,69,255,.1); border: 1px solid rgba(110,69,255,.25);
+      color: var(--purple-3);
+    }
+
+    /* Sidebar info box */
+    .sidebar-box {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.5rem;
+      position: sticky; top: 88px;
+    }
+    .sidebar-box h3 {
+      font-size: .78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--grey); margin-bottom: 1rem;
+    }
+    .sb-row {
+      display: flex; flex-direction: column; gap: .2rem;
+      padding: .7rem 0; border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .sb-row:last-of-type { border-bottom: none; }
+    .sb-label { font-size: .72rem; color: var(--grey); text-transform: uppercase; letter-spacing: .05em; }
+    .sb-value { font-size: .9rem; font-weight: 600; color: var(--white); }
+    .sb-cta { margin-top: 1.4rem; }
+    .sb-cta .btn { width: 100%; justify-content: center; font-size: .88rem; }
+    .sb-cta .btn + .btn { margin-top: .6rem; }
+
+    /* ── RELATED ── */
+    .related-section { padding: 3rem 0 5rem; border-top: 1px solid rgba(255,255,255,.06); }
+    .related-section h2 { font-size: 1.3rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 1.5rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    @media (max-width: 760px) { .related-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .related-grid { grid-template-columns: 1fr; } }
+
+    .rel-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      text-decoration: none; color: inherit;
+      transition: transform .25s, border-color .25s; display: block;
+    }
+    .rel-card:hover { transform: translateY(-4px); border-color: rgba(110,69,255,.55); }
+    .rel-img { aspect-ratio: 16/9; overflow: hidden; }
+    .rel-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+    .rel-card:hover .rel-img img { transform: scale(1.05); }
+    .rel-body { padding: 1rem 1.1rem; }
+    .rel-cat { font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--green); margin-bottom: .35rem; }
+    .rel-title { font-size: .9rem; font-weight: 700; line-height: 1.4; }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.92); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s;
+    }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lb-img-wrap {
+      position: relative; max-width: 1000px; max-height: 80vh; width: 100%;
+    }
+    .lb-img-wrap img {
+      width: 100%; height: 100%; max-height: 80vh;
+      object-fit: contain; display: block; border-radius: 12px;
+    }
+    .lb-close {
+      position: fixed; top: 1.5rem; right: 1.5rem;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      color: var(--white); cursor: pointer; font-size: 1.2rem;
+      display: grid; place-items: center; transition: background .2s;
+    }
+    .lb-close:hover { background: rgba(255,255,255,.2); }
+    .lb-prev, .lb-next {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      color: var(--white); cursor: pointer; font-size: 1.2rem;
+      display: grid; place-items: center; transition: background .2s;
+    }
+    .lb-prev { left: 1.5rem; }
+    .lb-next { right: 1.5rem; }
+    .lb-prev:hover, .lb-next:hover { background: rgba(110,69,255,.35); border-color: var(--purple); }
+    .lb-counter {
+      position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      font-size: .82rem; color: var(--grey);
+      background: rgba(0,0,0,.5); padding: .35rem .9rem; border-radius: 999px;
+    }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid rgba(255,255,255,.07); padding: 3rem 0 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    @media (max-width: 860px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+    @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
+    .footer-brand p { font-size: .85rem; color: var(--grey); line-height: 1.7; margin-top: .8rem; max-width: 240px; }
+    .footer-col h4 { font-size: .82rem; font-weight: 700; color: var(--white); margin-bottom: 1rem; letter-spacing: .04em; text-transform: uppercase; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    .footer-col ul li a { font-size: .85rem; color: var(--grey); text-decoration: none; transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 2rem; border-top: 1px solid rgba(255,255,255,.06);
+      font-size: .8rem; color: var(--grey);
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        BCP HOLDING
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#sluzby">Služby</a></li>
+        <li><a href="realizacie.html" class="active">Realizácie</a></li>
+        <li><a href="index.html#segmenty">Pre koho</a></li>
+        <li><a href="index.html#postup">Ako pracujeme</a></li>
+        <li><a href="index.html#novinky">Novinky</a></li>
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <a href="index.html#kontakt" class="btn btn-primary">Nezáväzná ponuka</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-bar">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Domov</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="realizacie.html">Realizácie</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Domové role</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT HERO -->
+<section class="proj-hero">
+  <div class="orb orb-purple" style="width:500px;height:500px;top:-150px;left:50%;transform:translateX(-50%);"></div>
+  <div class="container">
+    <div class="proj-hero-inner">
+      <div>
+        <div class="badge">Elektroinštalácia</div>
+        <h1>Domové role —<br><span class="txt-green">Elektroinštalácia</span></h1>
+        <div class="proj-hero-meta">
+          <span class="meta-pill">📍 <strong>Bratislava</strong></span>
+          <span class="meta-pill">🏢 <strong>EHR STAV, s.r.o.</strong></span>
+          <span class="meta-pill">⚡ <strong>Silnoprúd + Slaboprúd</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section">
+  <div class="orb orb-green" style="width:350px;height:350px;top:0;right:-80px;"></div>
+  <div class="container">
+    <div class="gallery-grid" id="gallery">
+
+      <div class="g-item g-featured" data-index="0">
+        <img src="https://codeartistry.eu/wp-content/uploads/2025/02/1_2-1024x768.webp" alt="Domové role — pohľad 1" />
+        <div class="g-item-overlay"><div class="g-zoom-icon">🔍</div></div>
+      </div>
+
+      <div class="g-item" data-index="1">
+        <img src="https://codeartistry.eu/wp-content/uploads/2025/02/2_2-1-1024x768.webp" alt="Domové role — pohľad 2" />
+        <div class="g-item-overlay"><div class="g-zoom-icon">🔍</div></div>
+      </div>
+
+      <div class="g-item" data-index="2">
+        <img src="https://codeartistry.eu/wp-content/uploads/2025/02/3_2-1024x768.webp" alt="Domové role — pohľad 3" />
+        <div class="g-item-overlay"><div class="g-zoom-icon">🔍</div></div>
+      </div>
+
+      <div class="g-item" data-index="3">
+        <img src="https://codeartistry.eu/wp-content/uploads/2025/02/4_1-1-1024x768.webp" alt="Domové role — pohľad 4" />
+        <div class="g-item-overlay"><div class="g-zoom-icon">🔍</div></div>
+      </div>
+
+      <div class="g-item" data-index="4">
+        <img src="https://codeartistry.eu/wp-content/uploads/2025/02/5_1-1-1024x768.webp" alt="Domové role — pohľad 5" />
+        <div class="g-item-overlay"><div class="g-zoom-icon">🔍</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT + SIDEBAR -->
+<section class="content-section">
+  <div class="container">
+    <div class="content-layout">
+
+      <!-- TEXT -->
+      <div class="proj-text">
+        <h2>O projekte</h2>
+        <p>Spoločnosť BCP HOLDING s.r.o. sa zúčastnila na výstavbe bytového projektu Domové role v Bratislave. V rámci tejto zákazky sme realizovali komplexné silnoprúdové aj slaboprúdové elektroinštalácie podľa požiadaviek generálneho dodávateľa EHR STAV, s.r.o.</p>
+        <p>Primárnym cieľom bola realizácia slaboprúdových a silnoprúdových rozvodov v novej bytovej výstavbe, vrátane všetkých spoločných priestorov, technických miestností a bytových jednotiek.</p>
+
+        <h3>Realizované práce</h3>
+        <ul>
+          <li>Silnoprúdové inštalácie — hlavné a podružné rozvádzače, bytové rozvody</li>
+          <li>Slaboprúdové inštalácie — štruktúrovaná kabeláž a dátové rozvody</li>
+          <li>Inštalácia v spoločných priestoroch a technických miestnostiach</li>
+          <li>Revízia elektrickej inštalácie a odovzdávacia dokumentácia</li>
+        </ul>
+
+        <div class="tags-wrap">
+          <span class="tag-chip">Elektroinštalácia</span>
+          <span class="tag-chip">Silnoprúd</span>
+          <span class="tag-chip">Slaboprúd</span>
+          <span class="tag-chip">Bratislava</span>
+          <span class="tag-chip">Bytová výstavba</span>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside>
+        <div class="sidebar-box">
+          <h3>Informácie o projekte</h3>
+          <div class="sb-row">
+            <span class="sb-label">Lokalita</span>
+            <span class="sb-value">Bratislava</span>
+          </div>
+          <div class="sb-row">
+            <span class="sb-label">Kategória</span>
+            <span class="sb-value">Elektroinštalácia</span>
+          </div>
+          <div class="sb-row">
+            <span class="sb-label">Klient</span>
+            <span class="sb-value">EHR STAV, s.r.o.</span>
+          </div>
+          <div class="sb-row">
+            <span class="sb-label">Typ prác</span>
+            <span class="sb-value">Silnoprúd + Slaboprúd</span>
+          </div>
+          <div class="sb-cta">
+            <a href="index.html#kontakt" class="btn btn-primary">Mám podobný projekt</a>
+            <a href="realizacie.html" class="btn btn-ghost">← Späť na realizácie</a>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<!-- RELATED PROJECTS -->
+<section class="related-section">
+  <div class="container">
+    <h2>Ďalšie <span class="txt-green">realizácie</span></h2>
+    <div class="related-grid">
+      <a href="realizacia-avion.html" class="rel-card">
+        <div class="rel-img">
+          <img src="https://codeartistry.eu/wp-content/uploads/2025/02/7_1-1024x768.webp" alt="Avion" />
+        </div>
+        <div class="rel-body">
+          <div class="rel-cat">Dátové rozvody</div>
+          <div class="rel-title">Avion</div>
+        </div>
+      </a>
+      <a href="realizacia-malacky.html" class="rel-card">
+        <div class="rel-img">
+          <img src="https://codeartistry.eu/wp-content/uploads/2025/02/1-1-1024x732.webp" alt="Rekonštrukcia elektroinštalácie" />
+        </div>
+        <div class="rel-body">
+          <div class="rel-cat">Elektroinštalácia</div>
+          <div class="rel-title">Rekonštrukcia elektroinštalácie</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="display:inline-flex;margin-bottom:.5rem;">
+          <div class="nav-logo-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          BCP HOLDING
+        </a>
+        <p>Spoľahlivé silnoprúdové aj slaboprúdové elektroinštalácie pre bytové, komerčné aj priemyselné projekty na celom Slovensku.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Služby</h4>
+        <ul>
+          <li><a href="index.html#sluzby">Silnoprúdové inštalácie</a></li>
+          <li><a href="index.html#sluzby">Slaboprúdové systémy</a></li>
+          <li><a href="index.html#sluzby">Verejné osvetlenie</a></li>
+          <li><a href="index.html#sluzby">EPS a HSP</a></li>
+          <li><a href="index.html#sluzby">KS · Kamerový systém</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Pre koho</h4>
+        <ul>
+          <li><a href="index.html#segmenty">Developeri</a></li>
+          <li><a href="index.html#segmenty">Mestá a obce</a></li>
+          <li><a href="index.html#segmenty">Firmy a prevádzky</a></li>
+          <li><a href="realizacie.html">Realizácie</a></li>
+          <li><a href="index.html#novinky">Novinky</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:info@bcpholding.sk">info@bcpholding.sk</a></li>
+          <li><a href="tel:+421910455300">+421 910 455 300</a></li>
+          <li><a href="index.html#kontakt">Nezáväzná ponuka</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 BCP HOLDING s.r.o. Všetky práva vyhradené.</span>
+      <span>Profesionálne elektroinštalácie · Slovensko</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lb-close">✕</button>
+  <button class="lb-prev" id="lb-prev">‹</button>
+  <div class="lb-img-wrap">
+    <img src="" alt="" id="lb-img" />
+  </div>
+  <button class="lb-next" id="lb-next">›</button>
+  <div class="lb-counter" id="lb-counter">1 / 5</div>
+</div>
+
+<script>
+(function () {
+  const items    = Array.from(document.querySelectorAll('.g-item'));
+  const lightbox = document.getElementById('lightbox');
+  const lbImg    = document.getElementById('lb-img');
+  const lbClose  = document.getElementById('lb-close');
+  const lbPrev   = document.getElementById('lb-prev');
+  const lbNext   = document.getElementById('lb-next');
+  const lbCounter= document.getElementById('lb-counter');
+  const images   = items.map(function (el) {
+    return { src: el.querySelector('img').src, alt: el.querySelector('img').alt };
+  });
+  let current = 0;
+
+  function open(index) {
+    current = index;
+    show();
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function show() {
+    lbImg.src = images[current].src;
+    lbImg.alt = images[current].alt;
+    lbCounter.textContent = (current + 1) + ' / ' + images.length;
+  }
+  function prev() { current = (current - 1 + images.length) % images.length; show(); }
+  function next() { current = (current + 1) % images.length; show(); }
+
+  items.forEach(function (el, i) {
+    el.addEventListener('click', function () { open(i); });
+  });
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', prev);
+  lbNext.addEventListener('click', next);
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === lightbox) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+  });
+})();
+</script>
+
+</body>
+</html>
