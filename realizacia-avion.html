@@ -78,14 +78,25 @@
     }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 2rem; }
     .nav-logo {
-      font-size: 1.1rem; font-weight: 800; color: var(--white);
-      text-decoration: none; letter-spacing: -.01em; display: flex; align-items: center; gap: .5rem;
+      font-size: 1.4rem; font-weight: 800; color: var(--white);
+      text-decoration: none; letter-spacing: -.01em; display: flex; align-items: center; gap: 0;
     }
-    .nav-logo-icon { width: 32px; height: 32px; background: var(--purple); border-radius: 8px; display: grid; place-items: center; }
+    .nav-logo-icon { display: none; }
     .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
     .nav-links a { color: var(--grey); text-decoration: none; font-size: .88rem; font-weight: 500; transition: color .2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--white); }
-    @media (max-width: 768px) { .nav-links { display: none; } }
+    .nav-hamburger { display:none; flex-direction:column; justify-content:center; align-items:center; gap:5px; width:40px; height:40px; background:none; border:none; cursor:pointer; padding:4px; }
+    .nav-hamburger span { display:block; width:22px; height:2px; background:var(--white); border-radius:2px; transition:transform .3s, opacity .3s; }
+    .nav-hamburger.is-open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .nav-hamburger.is-open span:nth-child(2) { opacity:0; }
+    .nav-hamburger.is-open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    .nav-drawer { display:none; position:fixed; inset:68px 0 0 0; z-index:99; background:rgba(7,0,31,.97); backdrop-filter:blur(20px); flex-direction:column; padding:2rem 1.5rem 3rem; overflow-y:auto; border-top:1px solid rgba(255,255,255,.06); }
+    .nav-drawer.is-open { display:flex; }
+    .nav-drawer ul { list-style:none; display:flex; flex-direction:column; gap:0; margin-bottom:2rem; }
+    .nav-drawer ul li a { display:block; padding:1rem 0; color:var(--white); text-decoration:none; font-size:1.15rem; font-weight:600; border-bottom:1px solid rgba(255,255,255,.06); transition:color .2s; }
+    .nav-drawer ul li a:hover { color:var(--purple-3); }
+    .nav-drawer .drawer-cta .btn { width:100%; text-align:center; padding:.9rem 1rem; font-size:1rem; }
+    @media (max-width: 768px) { .nav-links { display: none; } .nav-hamburger { display:flex; } }
 
     /* ── BREADCRUMB ── */
     .breadcrumb-bar { padding: 2rem 0 0; background: transparent; }
@@ -327,10 +338,7 @@
   <div class="container">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <div class="nav-logo-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        </div>
-        BCP HOLDING
+        BCP HOLDING<svg style="display:inline-block;vertical-align:baseline;margin-left:3px;margin-bottom:-1px" width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       </a>
       <ul class="nav-links">
         <li><a href="index.html#sluzby">Služby</a></li>
@@ -340,12 +348,25 @@
         <li><a href="index.html#novinky">Novinky</a></li>
         <li><a href="index.html#kontakt">Kontakt</a></li>
       </ul>
-      <div style="display:flex;align-items:center;gap:1rem;">
+      <div style="display:flex;align-items:center;gap:1rem;" class="nav-cta-wrap">
         <a href="index.html#kontakt" class="btn btn-primary">Nezáväzná ponuka</a>
       </div>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
+<div class="nav-drawer" id="nav-drawer">
+  <ul>
+    <li><a href="index.html#sluzby" class="drawer-link">Služby</a></li>
+    <li><a href="realizacie.html" class="drawer-link">Realizácie</a></li>
+    <li><a href="index.html#segmenty" class="drawer-link">Pre koho</a></li>
+    <li><a href="index.html#postup" class="drawer-link">Ako pracujeme</a></li>
+    <li><a href="novinky.html" class="drawer-link">Novinky</a></li>
+    <li><a href="index.html#o-nas" class="drawer-link">O nás</a></li>
+    <li><a href="kontakt.html" class="drawer-link">Kontakt</a></li>
+  </ul>
+  <div class="drawer-cta"><a href="kontakt.html" class="btn btn-primary">Nezáväzná ponuka</a></div>
+</div>
 
 <!-- BREADCRUMB -->
 <div class="breadcrumb-bar">
@@ -540,10 +561,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="nav-logo" style="display:inline-flex;margin-bottom:.5rem;">
-          <div class="nav-logo-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-          BCP HOLDING
+          BCP HOLDING<svg style="display:inline-block;vertical-align:baseline;margin-left:3px;margin-bottom:-1px" width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </a>
         <p>Spoľahlivé silnoprúdové aj slaboprúdové elektroinštalácie pre bytové, komerčné aj priemyselné projekty na celom Slovensku.</p>
       </div>
@@ -642,6 +660,8 @@
     if (e.key === 'ArrowRight') next();
   });
 })();
+
+(function(){var btn=document.getElementById('nav-hamburger'),drawer=document.getElementById('nav-drawer');if(!btn||!drawer)return;btn.addEventListener('click',function(){var o=drawer.classList.toggle('is-open');btn.classList.toggle('is-open',o);document.body.style.overflow=o?'hidden':'';});drawer.querySelectorAll('.drawer-link').forEach(function(l){l.addEventListener('click',function(){drawer.classList.remove('is-open');btn.classList.remove('is-open');document.body.style.overflow='';});});})();
 </script>
 
 </body>

@@ -122,15 +122,11 @@
       height: 68px; gap: 2rem;
     }
     .nav-logo {
-      font-size: 1.1rem; font-weight: 800;
+      font-size: 1.4rem; font-weight: 800;
       color: var(--white); text-decoration: none;
-      letter-spacing: -.01em; display: flex; align-items: center; gap: .5rem;
+      letter-spacing: -.01em; display: flex; align-items: center; gap: 0;
     }
-    .nav-logo-icon {
-      width: 32px; height: 32px;
-      background: var(--purple); border-radius: 8px;
-      display: grid; place-items: center;
-    }
+    .nav-logo-icon { display: none; }
     .nav-links {
       display: flex; align-items: center; gap: 2rem;
       list-style: none;
@@ -143,8 +139,65 @@
     .nav-links a:hover { color: var(--white); }
     .nav-cta { display: flex; align-items: center; gap: 1rem; }
 
+    /* ── HAMBURGER ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 40px; height: 40px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+    .nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE DRAWER ── */
+    .nav-drawer {
+      display: none;
+      position: fixed; inset: 68px 0 0 0; z-index: 99;
+      background: rgba(7,0,31,.97); backdrop-filter: blur(20px);
+      flex-direction: column;
+      padding: 2rem 1.5rem 3rem;
+      overflow-y: auto;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-drawer.is-open { display: flex; }
+    .nav-drawer ul {
+      list-style: none; display: flex; flex-direction: column; gap: 0;
+      margin-bottom: 2rem;
+    }
+    .nav-drawer ul li a {
+      display: block; padding: 1rem 0;
+      color: var(--white); text-decoration: none;
+      font-size: 1.15rem; font-weight: 600;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      transition: color .2s;
+    }
+    .nav-drawer ul li a:hover { color: var(--purple-3); }
+    .nav-drawer .drawer-cta { margin-top: auto; }
+    .nav-drawer .drawer-cta .btn { width: 100%; text-align: center; padding: .9rem 1rem; font-size: 1rem; }
+
     @media (max-width: 768px) {
       .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+
+      /* Hero dashboard mobile */
+      .hero { padding: 120px 0 60px; }
+      .hero-visual { margin: 2.5rem auto 0; padding: 0 1rem; }
+      .hero-card { padding: 1rem; border-radius: 14px; }
+      .hero-card-top { padding-bottom: .75rem; margin-bottom: .9rem; }
+      .hero-card-top span { display: none; }
+      .panel-grid { grid-template-columns: 1fr; gap: .75rem; }
+      .panel-grid .panel:last-child { display: none; }
+      .panel { padding: .85rem .8rem; }
+      .panel-value { font-size: 1.25rem; }
+      .bar-label { width: 64px; font-size: .65rem; }
+      .bar-pct { font-size: .65rem; }
     }
 
     /* ────────────────────────── HERO ── */
@@ -793,9 +846,35 @@
       .cs-stage  { height: 340px; }
       .cs-card   { width: 480px; height: 300px; margin-left: -240px; }
     }
-    @media (max-width: 540px) {
-      .cs-stage  { height: 280px; }
-      .cs-card   { width: 320px; height: 220px; margin-left: -160px; }
+    @media (max-width: 600px) {
+      .cs-stage {
+        height: auto !important;
+        perspective: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        overflow: visible;
+        margin-top: 1rem;
+      }
+      .cs-card {
+        position: relative !important;
+        width: 100% !important;
+        height: 240px !important;
+        left: auto !important;
+        bottom: auto !important;
+        margin-left: 0 !important;
+        transform: none !important;
+        opacity: 1 !important;
+        border-radius: 14px;
+      }
+      .cs-card-content {
+        opacity: 1 !important;
+        transform: none !important;
+        padding: 1.25rem;
+      }
+      .cs-card-title { font-size: 1.2rem; }
+      .cs-card-desc  { font-size: .9rem; }
+      .cs-dots, .cs-nav-btns { display: none; }
     }
   </style>
 </head>
@@ -806,12 +885,7 @@
   <div class="container">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
-        <div class="nav-logo-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-          </svg>
-        </div>
-        BCP HOLDING
+        BCP HOLDING<svg style="display:inline-block;vertical-align:baseline;margin-left:3px;margin-bottom:-1px" width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       </a>
 
       <ul class="nav-links">
@@ -827,9 +901,29 @@
       <div class="nav-cta">
         <a href="kontakt.html" class="btn btn-primary">Nezáväzná ponuka</a>
       </div>
+
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="nav-drawer">
+  <ul>
+    <li><a href="#sluzby" class="drawer-link">Služby</a></li>
+    <li><a href="realizacie.html" class="drawer-link">Realizácie</a></li>
+    <li><a href="#segmenty" class="drawer-link">Pre koho</a></li>
+    <li><a href="#postup" class="drawer-link">Ako pracujeme</a></li>
+    <li><a href="novinky.html" class="drawer-link">Novinky</a></li>
+    <li><a href="#o-nas" class="drawer-link">O nás</a></li>
+    <li><a href="kontakt.html" class="drawer-link">Kontakt</a></li>
+  </ul>
+  <div class="drawer-cta">
+    <a href="kontakt.html" class="btn btn-primary">Nezáväzná ponuka</a>
+  </div>
+</div>
 
 <!-- ══════════════ HERO ══════════════ -->
 <section class="hero">
@@ -881,18 +975,18 @@
             <div class="panel-label" style="margin-bottom:.8rem;">Typy inštalácií</div>
             <div class="bar-row">
               <div class="bar-label">Silnoprúd</div>
-              <div class="bar-track"><div class="bar-fill purple" style="width:78%"></div></div>
-              <div class="bar-pct">78%</div>
+              <div class="bar-track"><div class="bar-fill purple" style="width:100%"></div></div>
+              <div class="bar-pct">100%</div>
             </div>
             <div class="bar-row">
               <div class="bar-label">Slaboprúd</div>
-              <div class="bar-track"><div class="bar-fill green" style="width:62%"></div></div>
-              <div class="bar-pct">62%</div>
+              <div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div>
+              <div class="bar-pct">100%</div>
             </div>
             <div class="bar-row">
               <div class="bar-label">Smart Home</div>
-              <div class="bar-track"><div class="bar-fill purple" style="width:44%"></div></div>
-              <div class="bar-pct">44%</div>
+              <div class="bar-track"><div class="bar-fill purple" style="width:100%"></div></div>
+              <div class="bar-pct">100%</div>
             </div>
           </div>
           <!-- Panel 3: status -->
@@ -1374,12 +1468,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="#" class="nav-logo" style="display:inline-flex;margin-bottom:.5rem;">
-          <div class="nav-logo-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-            </svg>
-          </div>
-          BCP HOLDING
+          BCP HOLDING<svg style="display:inline-block;vertical-align:baseline;margin-left:3px;margin-bottom:-1px" width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </a>
         <p>Spoľahlivé silnoprúdové aj slaboprúdové elektroinštalácie pre bytové, komerčné aj priemyselné projekty na celom Slovensku.</p>
       </div>
@@ -1425,6 +1514,27 @@
 </footer>
 
 <script>
+// ── Hamburger menu ───────────────────────────────────────────────────────────
+(function () {
+  var btn = document.getElementById('nav-hamburger');
+  var drawer = document.getElementById('nav-drawer');
+  if (!btn || !drawer) return;
+
+  btn.addEventListener('click', function () {
+    var open = drawer.classList.toggle('is-open');
+    btn.classList.toggle('is-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  drawer.querySelectorAll('.drawer-link').forEach(function (link) {
+    link.addEventListener('click', function () {
+      drawer.classList.remove('is-open');
+      btn.classList.remove('is-open');
+      document.body.style.overflow = '';
+    });
+  });
+})();
+
 // ── BeamsBackground (vanilla JS port of beams-background.tsx) ───────────────
 (function () {
   const canvas = document.getElementById('hero-canvas');
