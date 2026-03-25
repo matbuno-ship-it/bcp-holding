@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 72" width="320" height="72">
+  <!-- Light background version — for use on white/light surfaces -->
+  <rect width="320" height="72" rx="8" fill="white"/>
+
+  <!-- Circle + bolt icon -->
+  <path fill-rule="evenodd" transform="translate(11,11)"
+    d="M25,1 A24,24 0 1 0 25,49 A24,24 0 1 0 25,1 Z M29,7 L15,28 L22,28 L19,45 L37,26 L30,26 Z"
+    fill="#3B0764"/>
+
+  <!-- BCP HOLDING -->
+  <text x="75" y="46"
+    font-family="'Inter','Helvetica Neue',Arial,sans-serif"
+    font-weight="800"
+    font-size="32"
+    letter-spacing="-0.5"
+    fill="#3B0764">BCP HOLDING</text>
+</svg>
