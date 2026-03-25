@@ -1813,7 +1813,7 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
         card.innerHTML =
           '<div class="news-img">' +
             '<img src="' + item.image + '" alt="' + item.title.replace(/"/g, '&quot;') + '" />' +
-            '<span class="news-cat">' + item.category + '</span>' +
+            (item.category ? '<span class="news-cat">' + item.category + '</span>' : '') +
           '</div>' +
           '<div class="news-body">' +
             '<div class="news-date">' + fmtDate(item.date) + '</div>' +
