@@ -27,7 +27,7 @@
         var article = document.createElement('article');
         article.className = 'proj-card';
         article.dataset.cat = item.category;
-        article.dataset.href = 'realizacia.html?id=' + encodeURIComponent(item.id);
+        article.dataset.href = '/realizacie/' + encodeURIComponent(item.id);
 
         article.innerHTML =
           '<div class="proj-img">' +
@@ -39,7 +39,7 @@
             '<p class="proj-desc">' + item.description + '</p>' +
             '<div class="proj-footer">' +
               '<span class="proj-location">\uD83D\uDCCD ' + item.location + '</span>' +
-              '<a href="realizacia.html?id=' + encodeURIComponent(item.id) + '" class="proj-link">Detail <span>\u2192</span></a>' +
+              '<a href="/realizacie/' + encodeURIComponent(item.id) + '" class="proj-link">Detail <span>\u2192</span></a>' +
             '</div>' +
           '</div>';
 

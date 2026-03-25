@@ -46,7 +46,7 @@
         var isFeatured = index === 0;
         article.className = 'news-card' + (isFeatured ? ' news-featured' : '');
         article.dataset.cat = item.category;
-        article.dataset.href = 'novinka.html?id=' + encodeURIComponent(item.id);
+        article.dataset.href = '/novinky/' + encodeURIComponent(item.id);
 
         article.innerHTML =
           '<div class="news-img">' +
@@ -57,7 +57,7 @@
             '<div class="news-date">' + formatDate(item.date) + '</div>' +
             '<h3 class="news-title">' + item.title + '</h3>' +
             '<p class="news-desc">' + item.description + '</p>' +
-            '<a href="novinka.html?id=' + encodeURIComponent(item.id) + '" class="news-link">\u010C\u00EDta\u0165 viac \u2192</a>' +
+            '<a href="/novinky/' + encodeURIComponent(item.id) + '" class="news-link">\u010C\u00EDta\u0165 viac \u2192</a>' +
           '</div>';
 
         grid.appendChild(article);

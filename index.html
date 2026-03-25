@@ -1766,7 +1766,7 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
         var card = document.createElement('div');
         card.className = 'cs-card';
         card.dataset.index = String(i);
-        card.dataset.href = 'realizacia.html?id=' + encodeURIComponent(item.id);
+        card.dataset.href = '/realizacie/' + encodeURIComponent(item.id);
         card.innerHTML =
           '<img src="' + item.image + '" alt="' + item.title.replace(/"/g, '&quot;') + '" />' +
           '<div class="cs-card-overlay"></div>' +
@@ -1805,7 +1805,7 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
       grid.innerHTML = '';
       items.forEach(function (item) {
         var card = document.createElement('a');
-        card.href = 'novinka.html?id=' + encodeURIComponent(item.id);
+        card.href = '/novinky/' + encodeURIComponent(item.id);
         card.style.textDecoration = 'none';
         card.style.color = 'inherit';
         card.style.display = 'block';
@@ -1819,7 +1819,7 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
             '<div class="news-date">' + fmtDate(item.date) + '</div>' +
             '<h3 class="news-title">' + item.title + '</h3>' +
             '<p class="news-desc">' + item.description + '</p>' +
-            '<a href="novinka.html?id=' + encodeURIComponent(item.id) + '" class="news-link">Čítať viac <span>→</span></a>' +
+            '<a href="/novinky/' + encodeURIComponent(item.id) + '" class="news-link">Čítať viac <span>→</span></a>' +
           '</div>';
         grid.appendChild(card);
       });

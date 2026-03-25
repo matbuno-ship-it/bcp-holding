@@ -141,7 +141,7 @@
           var rel = data.items.find(function (n) { return n.id === rid; });
           if (!rel) return;
           var relDate = formatDate(rel.date);
-          relHtml += '<a href="novinka.html?id=' + rel.id + '" class="rel-card">'
+          relHtml += '<a href="/novinky/' + rel.id + '" class="rel-card">'
             + '<div class="rel-img"><img src="' + rel.image + '" alt="' + rel.title + '" /></div>'
             + '<div class="rel-body">'
             + '<div class="rel-cat">' + rel.category + '</div>'

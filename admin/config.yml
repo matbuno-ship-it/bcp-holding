@@ -24,7 +24,7 @@ collections:
             widget: list
             summary: "{{fields.title}} — {{fields.category}}"
             fields:
-              - { name: id, label: "URL slug (bez medzier a diakritiky)", widget: string, hint: "Napr. 'domove-role', 'avion'. Používa sa v adrese stránky." }
+              - { name: id, label: "URL slug", widget: string, hint: "Nechajte prázdne — vyplní sa automaticky z nadpisu. Alebo zadajte vlastný (bez medzier a diakritiky, napr. 'domove-role').", required: false }
               - { name: category, label: Kategória, widget: select, options: ["Elektroinštalácia", "Dátové rozvody"] }
               - { name: title, label: "Názov projektu", widget: string }
               - { name: titleAccent, label: "Zvýraznený text v nadpise", widget: string, hint: "Časť nadpisu, ktorá bude zelená na detail stránke" }
@@ -71,7 +71,7 @@ collections:
             widget: list
             summary: "{{fields.title}} — {{fields.date}}"
             fields:
-              - { name: id, label: "URL slug", widget: string, hint: "Napr. 'novy-web'. Používa sa v adrese stránky." }
+              - { name: id, label: "URL slug", widget: string, hint: "Nechajte prázdne — vyplní sa automaticky z nadpisu. Alebo zadajte vlastný (bez medzier a diakritiky).", required: false }
               - { name: category, label: Kategória, widget: select, options: ["Spoločnosť", "Projekt", "Legislatíva", "Technika"] }
               - { name: title, label: Nadpis, widget: string }
               - { name: titleAccent, label: "Zvýraznený text v nadpise", widget: string, hint: "Časť nadpisu, ktorá bude zelená" }

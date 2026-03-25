@@ -114,7 +114,7 @@
         item.relatedIds.forEach(function (rid) {
           var rel = data.items.find(function (p) { return p.id === rid; });
           if (!rel) return;
-          relHtml += '<a href="realizacia.html?id=' + rel.id + '" class="rel-card">'
+          relHtml += '<a href="/realizacie/' + rel.id + '" class="rel-card">'
             + '<div class="rel-img"><img src="' + rel.image + '" alt="' + rel.title + '" /></div>'
             + '<div class="rel-body">'
             + '<div class="rel-cat">' + rel.category + '</div>'

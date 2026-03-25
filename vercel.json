@@ -1,5 +1,7 @@
 {
   "rewrites": [
+    { "source": "/realizacie/:slug", "destination": "/realizacia.html?id=:slug" },
+    { "source": "/novinky/:slug", "destination": "/novinka.html?id=:slug" },
     { "source": "/realizacia-domove-role.html", "destination": "/realizacia.html?id=domove-role" },
     { "source": "/realizacia-avion.html", "destination": "/realizacia.html?id=avion" },
     { "source": "/realizacia-malacky.html", "destination": "/realizacia.html?id=malacky" },

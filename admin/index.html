@@ -7,5 +7,41 @@
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
+  <script>
+  // Auto-generate slug from title when id field is empty
+  var slugify = function(text) {
+    return text.toString().toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .substring(0, 80);
+  };
+
+  // Override the id field to show generated slug as placeholder
+  if (window.CMS) {
+    CMS.registerEventListener({
+      name: 'preSave',
+      handler: function(ref) {
+        var entry = ref.entry;
+        var data = entry.get('data');
+        if (!data) return;
+
+        var items = data.get('items');
+        if (!items) return;
+
+        var updated = items.map(function(item) {
+          var id = item.get('id');
+          var title = item.get('title');
+          if ((!id || id === '') && title) {
+            return item.set('id', slugify(title));
+          }
+          return item;
+        });
+
+        return data.set('items', updated);
+      }
+    });
+  }
+  </script>
 </body>
 </html>
