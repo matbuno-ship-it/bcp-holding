@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
   var grid = document.getElementById('proj-grid');
   var noRes = document.getElementById('no-results');
 
@@ -99,4 +99,4 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   }
-});
+})();

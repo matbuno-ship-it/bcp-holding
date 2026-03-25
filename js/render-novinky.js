@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
   var grid = document.getElementById('news-grid');
   if (!grid) return;
 
@@ -104,4 +104,4 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   }
-});
+})();
