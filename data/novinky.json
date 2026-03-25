@@ -1,19 +1,24 @@
 {
   "items": [
     {
-      "id": "novy-web",
-      "category": "Spoločnosť",
-      "title": "Máme nový web a novú vizuálnu identitu",
       "titleAccent": "novú vizuálnu identitu",
-      "date": "2026-03-16",
-      "author": "BCP HOLDING",
-      "readTime": "2 min čítania",
-      "description": "S hrdosťou predstavujeme náš nový web a obnovenú vizuálnu identitu. Moderný dizajn odráža profesionalitu a ambície BCP HOLDING — spoľahlivého partnera pre elektroinštalácie na celom Slovensku.",
-      "image": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=600&h=340&q=80",
-      "coverImage": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1400&h=600&q=80",
       "body": "## Nový web je online\n\nS hrdosťou oznamujeme spustenie nového webu BCP HOLDING. Po niekoľkých mesiacoch príprav predstavujeme modernú digitálnu identitu, ktorá odráža to, čo robíme najlepšie — kvalitné a spoľahlivé elektroinštalácie na celom Slovensku.\n\nNový web prináša prehľadnejšiu štruktúru, rýchlejší prístup k informáciám o našich službách a online portfólio reálnych realizácií. Každý klient si teraz môže jednoducho prezrieť naše projekty a zistiť, čo pre neho dokážeme urobiť.\n\n## Čo sme zmenili\n\n- Moderný dizajn zodpovedajúci štandardom roku 2026\n- Nová vizuálna identita — farby, typografia, grafický štýl\n- Portfólio reálnych realizácií — Domové role, Avion, Michalovce\n- Prehľadná prezentácia všetkých služieb (silnoprúd a slaboprúd)\n- Jednoduchý kontaktný formulár pre nezáväznú ponuku\n\n> 'Nový web je odrazom toho, kam smerujeme — profesionálna spoločnosť s jasnými hodnotami a reálnymi výsledkami.' — BCP HOLDING s.r.o.\n\n## Navštívte nás\n\nPozrite si naše [realizácie](realizacie.html), zoznámte sa s našimi [službami](index.html#sluzby) a ak máte projekt, neváhajte nás [kontaktovať](kontakt.html). Odpovieme do 24 hodín.",
-      "tags": ["Spoločnosť", "Nový web", "Vizuálna identita", "BCP HOLDING"],
-      "relatedIds": []
+      "readTime": "2 min čítania",
+      "coverImage": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=1400&h=600&q=80",
+      "author": "BCP HOLDING",
+      "relatedIds": [],
+      "date": "2026-03-25",
+      "title": "Máme nový web a novú vizuálnu identitu",
+      "tags": [
+        "Spoločnosť",
+        "Nový web",
+        "Vizuálna identita",
+        "BCP HOLDING"
+      ],
+      "id": "novy-web",
+      "image": "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=600&h=340&q=80",
+      "description": "S hrdosťou predstavujeme náš nový web a obnovenú vizuálnu identitu. Moderný dizajn odráža profesionalitu a ambície BCP HOLDING — spoľahlivého partnera pre elektroinštalácie na celom Slovensku.",
+      "category": "Spoločnosť"
     }
   ]
 }
