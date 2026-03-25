@@ -136,6 +136,12 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
     @media (max-width:500px) { .form-row { grid-template-columns:1fr; } }
     .form-submit { width:100%; justify-content:center; font-size:.95rem; padding:.85rem; }
     .form-note { font-size:.75rem; color:var(--grey); text-align:center; margin-top:.85rem; }
+    .field-error { display:block; font-size:.78rem; color:#f87171; margin-top:.3rem; min-height:1.1em; }
+    .form-group input.invalid, .form-group textarea.invalid { border-color:#f87171 !important; }
+    .form-group input.valid, .form-group textarea.valid { border-color:var(--green) !important; }
+    #form-message.success { background:rgba(61,253,152,.1); color:var(--green); border:1px solid rgba(61,253,152,.3); }
+    #form-message.error { background:rgba(248,113,113,.1); color:#f87171; border:1px solid rgba(248,113,113,.3); }
+    .form-submit:disabled { opacity:.6; pointer-events:none; }
 
     /* MAP placeholder */
     .map-section { padding:0 0 5rem; }
@@ -300,31 +306,36 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
 
       <!-- RIGHT: form -->
       <div id="form">
-        <div class="contact-form">
+        <form class="contact-form" id="contact-form" novalidate>
           <h2>Nezáväzná ponuka</h2>
           <p class="form-sub">Vyplňte formulár a ozveme sa vám do 24 hodín.</p>
 
+          <div id="form-message" style="display:none;padding:1rem;border-radius:12px;margin-bottom:1.2rem;font-size:.9rem;font-weight:600;"></div>
+
           <div class="form-row">
             <div class="form-group">
-              <label>Meno a priezvisko *</label>
-              <input type="text" placeholder="Ján Novák" />
+              <label for="cf-name">Meno a priezvisko *</label>
+              <input type="text" id="cf-name" name="name" placeholder="Ján Novák" required />
+              <span class="field-error"></span>
             </div>
             <div class="form-group">
-              <label>Telefón *</label>
-              <input type="tel" placeholder="+421 9XX XXX XXX" />
+              <label for="cf-phone">Telefón *</label>
+              <input type="tel" id="cf-phone" name="phone" placeholder="+421 9XX XXX XXX" required />
+              <span class="field-error"></span>
             </div>
           </div>
           <div class="form-group">
-            <label>E-mail *</label>
-            <input type="email" placeholder="vas@email.sk" />
+            <label for="cf-email">E-mail *</label>
+            <input type="email" id="cf-email" name="email" placeholder="vas@email.sk" required />
+            <span class="field-error"></span>
           </div>
           <div class="form-group">
-            <label>Spoločnosť</label>
-            <input type="text" placeholder="Názov firmy (nepovinné)" />
+            <label for="cf-company">Spoločnosť</label>
+            <input type="text" id="cf-company" name="company" placeholder="Názov firmy (nepovinné)" />
           </div>
           <div class="form-group">
-            <label>Typ projektu</label>
-            <select>
+            <label for="cf-type">Typ projektu</label>
+            <select id="cf-type" name="projectType">
               <option value="">Vyberte typ...</option>
               <option>Bytový dom / rezidencia</option>
               <option>Komerčný objekt</option>
@@ -336,15 +347,16 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
             </select>
           </div>
           <div class="form-group">
-            <label>Popis projektu *</label>
-            <textarea placeholder="Stručne popíšte váš projekt — rozsah prác, lokalitu, termín a akékoľvek špecifické požiadavky..."></textarea>
+            <label for="cf-message">Popis projektu *</label>
+            <textarea id="cf-message" name="message" placeholder="Stručne popíšte váš projekt — rozsah prác, lokalitu, termín a akékoľvek špecifické požiadavky..." required></textarea>
+            <span class="field-error"></span>
           </div>
-          <button type="submit" class="btn btn-primary form-submit">
+          <button type="submit" class="btn btn-primary form-submit" id="cf-submit">
             Odoslať dopyt
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
-          <p class="form-note">Odpovieme do 24 hodín · Bez záväzkov</p>
-        </div>
+          <p class="form-note">Odpovieme do 24 hodín · Bez záväzkov · Chránené reCAPTCHA</p>
+        </form>
       </div>
 
     </div>
@@ -457,6 +469,95 @@ document.querySelectorAll('.faq-q').forEach(function (btn) {
   window.addEventListener('scroll',function(){
     nav.classList.toggle('scrolled',window.scrollY>80);
   },{passive:true});
+})();
+</script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LfIB5gsAAAAAB3HN0l4NgM3FS3xkWllHL-CRseJ"></script>
+<script>
+(function() {
+  var SITE_KEY = '6LfIB5gsAAAAAB3HN0l4NgM3FS3xkWllHL-CRseJ';
+  var form = document.getElementById('contact-form');
+  var btn = document.getElementById('cf-submit');
+  var msg = document.getElementById('form-message');
+  if (!form) return;
+
+  function showMsg(type, text) {
+    msg.className = type;
+    msg.textContent = text;
+    msg.style.display = 'block';
+  }
+
+  function validateField(input) {
+    var err = input.parentElement.querySelector('.field-error');
+    if (!err) return true;
+    var val = input.value.trim();
+
+    if (input.required && !val) {
+      input.className = 'invalid';
+      err.textContent = 'Toto pole je povinné';
+      return false;
+    }
+    if (input.type === 'email' && val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+      input.className = 'invalid';
+      err.textContent = 'Zadajte platný e-mail';
+      return false;
+    }
+    if (input.type === 'tel' && val && !/^[+\d\s()-]{6,}$/.test(val)) {
+      input.className = 'invalid';
+      err.textContent = 'Zadajte platné telefónne číslo';
+      return false;
+    }
+    input.className = val ? 'valid' : '';
+    err.textContent = '';
+    return true;
+  }
+
+  form.querySelectorAll('input[required], textarea[required]').forEach(function(input) {
+    input.addEventListener('blur', function() { validateField(input); });
+    input.addEventListener('input', function() {
+      if (input.className === 'invalid') validateField(input);
+    });
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    msg.style.display = 'none';
+
+    var fields = form.querySelectorAll('input[required], textarea[required]');
+    var valid = true;
+    fields.forEach(function(f) { if (!validateField(f)) valid = false; });
+    if (!valid) { showMsg('error', 'Prosím, vyplňte všetky povinné polia.'); return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Overujem...';
+
+    grecaptcha.ready(function() {
+      grecaptcha.execute(SITE_KEY, { action: 'contact' }).then(function(token) {
+        fetch('/api/verify-recaptcha', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: token })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.success) {
+            showMsg('success', 'Ďakujeme za váš dopyt! Ozveme sa vám do 24 hodín.');
+            form.reset();
+            form.querySelectorAll('.valid, .invalid').forEach(function(f) { f.className = ''; });
+            form.querySelectorAll('.field-error').forEach(function(f) { f.textContent = ''; });
+          } else {
+            showMsg('error', 'Overenie zlyhalo. Skúste to prosím znova.');
+          }
+          btn.disabled = false;
+          btn.innerHTML = 'Odoslať dopyt <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+        })
+        .catch(function() {
+          showMsg('error', 'Nastala chyba. Skúste to prosím neskôr.');
+          btn.disabled = false;
+          btn.innerHTML = 'Odoslať dopyt <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+        });
+      });
+    });
+  });
 })();
 </script>
 </body>
