@@ -8,9 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Máme nový web a novú vizuálnu identitu | BCP HOLDING</title>
   <meta name="description" content="BCP HOLDING predstavuje nový web a obnovenú vizuálnu identitu. Moderný dizajn, prehľadná štruktúra a nové online portfólio realizácií." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="css/fonts.css" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -366,7 +364,7 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
     </div>
     <div class="footer-bottom">
       <span>© 2025 BCP HOLDING s.r.o. Všetky práva vyhradené.</span>
-      <span>Profesionálne elektroinštalácie · Slovensko</span>
+      <span><a href="ochrana-osobnych-udajov.html" style="color:var(--grey);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--grey)'">Ochrana osobných údajov</a> · <a href="javascript:void(0)" onclick="window.bcpOpenCookieSettings&&window.bcpOpenCookieSettings()" style="color:var(--grey);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--grey)'">Nastavenia cookies</a> · Slovensko</span>
     </div>
   </div>
 </footer>
@@ -380,5 +378,6 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
   },{passive:true});
 })();
 </script>
+<script src="js/cookie-consent.js"></script>
 </body>
 </html>

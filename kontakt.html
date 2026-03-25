@@ -8,9 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kontakt – BCP HOLDING</title>
   <meta name="description" content="Kontaktujte BCP HOLDING s.r.o. — elektroinštalácie, KS, EPS, Smart systémy. Telefón: +421 910 455 300. Odpoveď do 24 hodín." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="css/fonts.css" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -142,6 +140,16 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
     #form-message.success { background:rgba(61,253,152,.1); color:var(--green); border:1px solid rgba(61,253,152,.3); }
     #form-message.error { background:rgba(248,113,113,.1); color:#f87171; border:1px solid rgba(248,113,113,.3); }
     .form-submit:disabled { opacity:.6; pointer-events:none; }
+
+    .form-group-checkbox { margin-bottom: 1.2rem; }
+    .checkbox-label { display:flex; align-items:flex-start; gap:.65rem; cursor:pointer; font-size:.82rem; color:var(--grey); line-height:1.5; }
+    .checkbox-label input[type="checkbox"] { position:absolute; opacity:0; width:0; height:0; }
+    .checkbox-custom { flex-shrink:0; width:20px; height:20px; border:1px solid rgba(255,255,255,.15); border-radius:5px; background:rgba(255,255,255,.04); transition:all .2s; position:relative; margin-top:1px; }
+    .checkbox-label input:checked + .checkbox-custom { background:var(--purple); border-color:var(--purple); }
+    .checkbox-label input:checked + .checkbox-custom::after { content:''; position:absolute; left:6px; top:2px; width:5px; height:10px; border:solid var(--white); border-width:0 2px 2px 0; transform:rotate(45deg); }
+    .checkbox-label input.invalid + .checkbox-custom { border-color:#f87171; }
+    .checkbox-text a { color:var(--purple-3); text-decoration:underline; transition:color .2s; }
+    .checkbox-text a:hover { color:var(--white); }
 
     /* MAP placeholder */
     .map-section { padding:0 0 5rem; }
@@ -351,6 +359,14 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
             <textarea id="cf-message" name="message" placeholder="Stručne popíšte váš projekt — rozsah prác, lokalitu, termín a akékoľvek špecifické požiadavky..." required></textarea>
             <span class="field-error"></span>
           </div>
+          <div class="form-group form-group-checkbox">
+            <label class="checkbox-label">
+              <input type="checkbox" id="cf-gdpr" name="gdprConsent" required />
+              <span class="checkbox-custom"></span>
+              <span class="checkbox-text">Súhlasím so spracovaním osobných údajov podľa <a href="ochrana-osobnych-udajov.html" target="_blank">zásad ochrany osobných údajov</a>.</span>
+            </label>
+            <span class="field-error"></span>
+          </div>
           <button type="submit" class="btn btn-primary form-submit" id="cf-submit">
             Odoslať dopyt
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -367,10 +383,15 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
 <section class="map-section">
   <div class="container">
     <div class="map-wrap">
+      <div id="maps-consent-placeholder" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:350px;background:rgba(255,255,255,.03);border-radius:16px;text-align:center;padding:2rem;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9895a1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <p style="color:var(--grey);margin:.8rem 0;font-size:.9rem;">Pre zobrazenie mapy je potrebný súhlas s marketingovými cookies.</p>
+        <button onclick="window.bcpOpenCookieSettings&&window.bcpOpenCookieSettings()" class="btn" style="background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.25);font-size:.82rem;padding:.55rem 1.2rem;">Upraviť nastavenia cookies</button>
+      </div>
       <iframe
-        src="https://maps.google.com/maps?q=Domov%C3%A9+role+19006%2F65A%2C+82105+Bratislava&t=&z=16&ie=UTF8&iwloc=&output=embed"
+        data-consent-src="https://maps.google.com/maps?q=Domov%C3%A9+role+19006%2F65A%2C+82105+Bratislava&t=&z=16&ie=UTF8&iwloc=&output=embed"
         width="100%" height="100%"
-        style="border:0; display:block;"
+        style="border:0; display:none;"
         allowfullscreen loading="lazy"
         referrerpolicy="no-referrer-when-downgrade">
       </iframe>
@@ -444,7 +465,7 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
     </div>
     <div class="footer-bottom">
       <span>© 2025 BCP HOLDING s.r.o. Všetky práva vyhradené.</span>
-      <span>Profesionálne elektroinštalácie · Slovensko</span>
+      <span><a href="ochrana-osobnych-udajov.html" style="color:var(--grey);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--grey)'">Ochrana osobných údajov</a> · <a href="javascript:void(0)" onclick="window.bcpOpenCookieSettings&&window.bcpOpenCookieSettings()" style="color:var(--grey);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--white)'" onmouseout="this.style.color='var(--grey)'">Nastavenia cookies</a> · Slovensko</span>
     </div>
   </div>
 </footer>
@@ -471,10 +492,20 @@ document.querySelectorAll('.faq-q').forEach(function (btn) {
   },{passive:true});
 })();
 </script>
-<script src="https://www.google.com/recaptcha/api.js?render=6LfIB5gsAAAAAB3HN0l4NgM3FS3xkWllHL-CRseJ"></script>
 <script>
 (function() {
   var SITE_KEY = '6LfIB5gsAAAAAB3HN0l4NgM3FS3xkWllHL-CRseJ';
+  var recaptchaLoaded = false;
+  var recaptchaReady = false;
+
+  function loadRecaptcha() {
+    if (recaptchaLoaded) return;
+    recaptchaLoaded = true;
+    var s = document.createElement('script');
+    s.src = 'https://www.google.com/recaptcha/api.js?render=' + SITE_KEY;
+    s.onload = function() { recaptchaReady = true; };
+    document.head.appendChild(s);
+  }
   var form = document.getElementById('contact-form');
   var btn = document.getElementById('cf-submit');
   var msg = document.getElementById('form-message');
@@ -518,6 +549,21 @@ document.querySelectorAll('.faq-q').forEach(function (btn) {
     });
   });
 
+  var gdprCb = document.getElementById('cf-gdpr');
+  if (gdprCb) {
+    gdprCb.addEventListener('change', function() {
+      if (gdprCb.checked) {
+        gdprCb.className = '';
+        var err = gdprCb.closest('.form-group').querySelector('.field-error');
+        if (err) err.textContent = '';
+      }
+    });
+  }
+
+  form.querySelectorAll('input, textarea, select').forEach(function(el) {
+    el.addEventListener('focus', loadRecaptcha, { once: true });
+  });
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     msg.style.display = 'none';
@@ -525,40 +571,58 @@ document.querySelectorAll('.faq-q').forEach(function (btn) {
     var fields = form.querySelectorAll('input[required], textarea[required]');
     var valid = true;
     fields.forEach(function(f) { if (!validateField(f)) valid = false; });
+
+    var gdprCheckbox = document.getElementById('cf-gdpr');
+    if (gdprCheckbox && !gdprCheckbox.checked) {
+      valid = false;
+      gdprCheckbox.className = 'invalid';
+      var gdprErr = gdprCheckbox.closest('.form-group').querySelector('.field-error');
+      if (gdprErr) gdprErr.textContent = 'Musíte súhlasiť so spracovaním osobných údajov';
+    }
     if (!valid) { showMsg('error', 'Prosím, vyplňte všetky povinné polia.'); return; }
 
     btn.disabled = true;
     btn.textContent = 'Overujem...';
 
-    grecaptcha.ready(function() {
-      grecaptcha.execute(SITE_KEY, { action: 'contact' }).then(function(token) {
-        fetch('/api/verify-recaptcha', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token: token })
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          if (data.success) {
-            showMsg('success', 'Ďakujeme za váš dopyt! Ozveme sa vám do 24 hodín.');
-            form.reset();
-            form.querySelectorAll('.valid, .invalid').forEach(function(f) { f.className = ''; });
-            form.querySelectorAll('.field-error').forEach(function(f) { f.textContent = ''; });
-          } else {
-            showMsg('error', 'Overenie zlyhalo. Skúste to prosím znova.');
-          }
-          btn.disabled = false;
-          btn.innerHTML = 'Odoslať dopyt <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
-        })
-        .catch(function() {
-          showMsg('error', 'Nastala chyba. Skúste to prosím neskôr.');
-          btn.disabled = false;
-          btn.innerHTML = 'Odoslať dopyt <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+    function executeRecaptcha() {
+      if (typeof grecaptcha !== 'undefined') {
+        grecaptcha.ready(function() {
+          grecaptcha.execute(SITE_KEY, { action: 'contact' }).then(function(token) {
+            fetch('/api/verify-recaptcha', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ token: token })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+              if (data.success) {
+                showMsg('success', 'Ďakujeme za váš dopyt! Ozveme sa vám do 24 hodín.');
+                form.reset();
+                if (gdprCb) gdprCb.checked = false;
+                form.querySelectorAll('.valid, .invalid').forEach(function(f) { f.className = ''; });
+                form.querySelectorAll('.field-error').forEach(function(f) { f.textContent = ''; });
+              } else {
+                showMsg('error', 'Overenie zlyhalo. Skúste to prosím znova.');
+              }
+              btn.disabled = false;
+              btn.innerHTML = 'Odoslať dopyt <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+            })
+            .catch(function() {
+              showMsg('error', 'Nastala chyba. Skúste to prosím neskôr.');
+              btn.disabled = false;
+              btn.innerHTML = 'Odoslať dopyt <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+            });
+          });
         });
-      });
-    });
+      } else {
+        setTimeout(executeRecaptcha, 100);
+      }
+    }
+    loadRecaptcha();
+    executeRecaptcha();
   });
 })();
 </script>
+<script src="js/cookie-consent.js"></script>
 </body>
 </html>
