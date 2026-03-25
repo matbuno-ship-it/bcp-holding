@@ -2,13 +2,18 @@
   'use strict';
 
   var id = new URLSearchParams(location.search).get('id');
-  if (!id) { location.href = 'realizacie.html'; return; }
+  if (!id) {
+    // Clean URL fallback: /realizacie/slug
+    var parts = location.pathname.split('/');
+    id = parts[parts.length - 1];
+  }
+  if (!id) { location.href = '/realizacie'; return; }
 
   fetch('data/realizacie.json')
     .then(function (r) { return r.json(); })
     .then(function (data) {
       var item = data.items.find(function (p) { return p.id === id; });
-      if (!item) { location.href = 'realizacie.html'; return; }
+      if (!item) { location.href = '/realizacie'; return; }
 
       // Page title
       document.title = item.title + ' — BCP HOLDING';
@@ -125,7 +130,7 @@
       }
     })
     .catch(function () {
-      location.href = 'realizacie.html';
+      location.href = '/realizacie';
     });
 
   // Lightbox wiring

@@ -2,7 +2,12 @@
   'use strict';
 
   var id = new URLSearchParams(location.search).get('id');
-  if (!id) { location.href = 'novinky.html'; return; }
+  if (!id) {
+    // Clean URL fallback: /novinky/slug
+    var parts = location.pathname.split('/');
+    id = parts[parts.length - 1];
+  }
+  if (!id) { location.href = '/novinky'; return; }
 
   // Slovak month names
   var MONTHS = [
@@ -19,7 +24,7 @@
     .then(function (r) { return r.json(); })
     .then(function (data) {
       var item = data.items.find(function (n) { return n.id === id; });
-      if (!item) { location.href = 'novinky.html'; return; }
+      if (!item) { location.href = '/novinky'; return; }
 
       var dateFormatted = formatDate(item.date);
 
@@ -153,6 +158,6 @@
       }
     })
     .catch(function () {
-      location.href = 'novinky.html';
+      location.href = '/novinky';
     });
 })();
