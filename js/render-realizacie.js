@@ -10,7 +10,7 @@
     return 'cat-elektro';
   }
 
-  fetch('data/realizacie.json')
+  fetch('/data/realizacie.json')
     .then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();

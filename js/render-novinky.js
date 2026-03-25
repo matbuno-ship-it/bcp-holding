@@ -27,13 +27,14 @@
     return map[category] || 'cat-projekt';
   }
 
-  fetch('data/novinky.json')
+  fetch('/data/novinky.json')
     .then(function (res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     })
     .then(function (data) {
       var items = data.items || [];
+      console.log('Novinky loaded:', items.length, 'items');
 
       // Remove existing static cards
       var existingCards = grid.querySelectorAll('.news-card');
