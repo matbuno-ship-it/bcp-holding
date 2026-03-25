@@ -1,0 +1,93 @@
+backend:
+  name: github
+  repo: matbuno-ship-it/bcp-holding
+  branch: main
+  auth_type: pkce
+  # app_id: YOUR_GITHUB_OAUTH_APP_CLIENT_ID
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: "sk"
+
+collections:
+  - name: "realizacie"
+    label: "Realizácie"
+    files:
+      - name: "realizacie-data"
+        label: "Zoznam realizácií"
+        file: "data/realizacie.json"
+        format: "json"
+        fields:
+          - name: items
+            label: Realizácie
+            widget: list
+            summary: "{{fields.title}} — {{fields.category}}"
+            fields:
+              - { name: id, label: "URL slug (bez medzier a diakritiky)", widget: string, hint: "Napr. 'domove-role', 'avion'. Používa sa v adrese stránky." }
+              - { name: category, label: Kategória, widget: select, options: ["Elektroinštalácia", "Dátové rozvody"] }
+              - { name: title, label: "Názov projektu", widget: string }
+              - { name: titleAccent, label: "Zvýraznený text v nadpise", widget: string, hint: "Časť nadpisu, ktorá bude zelená na detail stránke" }
+              - { name: description, label: "Krátky popis (pre kartu)", widget: text }
+              - { name: image, label: "Hlavný obrázok", widget: image }
+              - { name: location, label: Lokalita, widget: string }
+              - { name: year, label: Rok, widget: string, required: false }
+              - { name: client, label: Klient, widget: string }
+              - { name: type, label: "Typ prác", widget: string, hint: "Napr. 'Silnoprúd + Slaboprúd'" }
+              - name: gallery
+                label: "Galéria (fotky)"
+                widget: list
+                summary: "{{fields.alt}}"
+                fields:
+                  - { name: url, label: Obrázok, widget: image }
+                  - { name: alt, label: "Popis obrázku", widget: string }
+                  - { name: featured, label: "Veľký obrázok (prvý v galérii)", widget: boolean, default: false }
+              - { name: about, label: "O projekte (prvý odsek)", widget: text }
+              - { name: aboutExtra, label: "O projekte (druhý odsek)", widget: text, required: false }
+              - name: scope
+                label: "Rozsah prác"
+                widget: list
+                field: { name: item, label: Položka, widget: string }
+              - name: tags
+                label: Štítky
+                widget: list
+                field: { name: tag, label: Štítok, widget: string }
+              - name: relatedIds
+                label: "Súvisiace projekty (ID)"
+                widget: list
+                required: false
+                field: { name: relId, label: "ID projektu", widget: string }
+
+  - name: "novinky"
+    label: "Novinky"
+    files:
+      - name: "novinky-data"
+        label: "Zoznam noviniek"
+        file: "data/novinky.json"
+        format: "json"
+        fields:
+          - name: items
+            label: Novinky
+            widget: list
+            summary: "{{fields.title}} — {{fields.date}}"
+            fields:
+              - { name: id, label: "URL slug", widget: string, hint: "Napr. 'novy-web'. Používa sa v adrese stránky." }
+              - { name: category, label: Kategória, widget: select, options: ["Spoločnosť", "Projekt", "Legislatíva", "Technika"] }
+              - { name: title, label: Nadpis, widget: string }
+              - { name: titleAccent, label: "Zvýraznený text v nadpise", widget: string, hint: "Časť nadpisu, ktorá bude zelená" }
+              - { name: date, label: Dátum, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+              - { name: author, label: Autor, widget: string, default: "BCP HOLDING" }
+              - { name: readTime, label: "Čas čítania", widget: string, default: "2 min čítania" }
+              - { name: description, label: "Krátky popis (pre kartu)", widget: text }
+              - { name: image, label: "Obrázok karty", widget: image }
+              - { name: coverImage, label: "Cover obrázok (veľký, na detail stránke)", widget: image }
+              - { name: body, label: "Obsah článku", widget: markdown, hint: "Píšte text, pridávajte nadpisy, zoznamy, citácie. Pre citáciu použite > na začiatku riadku." }
+              - name: tags
+                label: Štítky
+                widget: list
+                field: { name: tag, label: Štítok, widget: string }
+              - name: relatedIds
+                label: "Súvisiace články (ID)"
+                widget: list
+                required: false
+                field: { name: relId, label: "ID článku", widget: string }

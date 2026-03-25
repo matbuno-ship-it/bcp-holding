@@ -403,50 +403,7 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
     <!-- Grid -->
     <div class="proj-grid" id="proj-grid">
 
-      <article class="proj-card" data-cat="Elektroinštalácia" data-href="realizacia-domove-role.html">
-        <div class="proj-img">
-          <img src="https://codeartistry.eu/wp-content/uploads/2025/02/1_2-1024x768.webp" alt="Domové role" />
-          <span class="proj-cat cat-elektro">Elektroinštalácia</span>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">Domové role</h3>
-          <p class="proj-desc">Realizácia slaboprúdových a silnoprúdových rozvodov v rámci stavebného projektu. Klient: EHR STAV, s.r.o.</p>
-          <div class="proj-footer">
-            <span class="proj-location">📍 Bratislava</span>
-            <a href="realizacia-domove-role.html" class="proj-link">Detail <span>→</span></a>
-          </div>
-        </div>
-      </article>
-
-      <article class="proj-card" data-cat="Dátové rozvody" data-href="realizacia-avion.html">
-        <div class="proj-img">
-          <img src="https://codeartistry.eu/wp-content/uploads/2025/02/7_1-1024x768.webp" alt="Avion" />
-          <span class="proj-cat cat-datove">Dátové rozvody</span>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">Avion</h3>
-          <p class="proj-desc">Realizácia silnoprúdových a slaboprúdových rozvodov vrátane dátových rozvodov. Klient: DYNAMIK CONSTRUCTION, s.r.o.</p>
-          <div class="proj-footer">
-            <span class="proj-location">📍 Bratislava</span>
-            <a href="realizacia-avion.html" class="proj-link">Detail <span>→</span></a>
-          </div>
-        </div>
-      </article>
-
-      <article class="proj-card" data-cat="Elektroinštalácia" data-href="realizacia-malacky.html">
-        <div class="proj-img">
-          <img src="https://codeartistry.eu/wp-content/uploads/2025/02/1-1-1024x732.webp" alt="Malacky — rekonštrukcia elektroinštalácie" />
-          <span class="proj-cat cat-elektro">Elektroinštalácia</span>
-        </div>
-        <div class="proj-body">
-          <h3 class="proj-title">Rekonštrukcia elektroinštalácie</h3>
-          <p class="proj-desc">Rekonštrukcia a realizácia silnoprúdových a slaboprúdových rozvodov. Klient: Madip Investment, s.r.o.</p>
-          <div class="proj-footer">
-            <span class="proj-location">📍 Michalovce</span>
-            <a href="realizacia-malacky.html" class="proj-link">Detail <span>→</span></a>
-          </div>
-        </div>
-      </article>
+      <!-- Cards rendered dynamically from data/realizacie.json -->
 
       <div class="no-results" id="no-results">
         Žiadne projekty v tejto kategórii. Skúste iný filter.
@@ -526,33 +483,7 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
 </footer>
 
 <script>
-// ── Project filter ──────────────────────────────────────────────────────────
-(function () {
-  const btns    = document.querySelectorAll('.filter-btn');
-  const cards   = document.querySelectorAll('.proj-card');
-  const noRes   = document.getElementById('no-results');
-
-  btns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      btns.forEach(function (b) { b.classList.remove('active'); });
-      btn.classList.add('active');
-
-      const cat = btn.dataset.cat;
-      let visible = 0;
-
-      cards.forEach(function (card) {
-        if (cat === 'all' || card.dataset.cat === cat) {
-          card.classList.remove('hidden');
-          visible++;
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-
-      noRes.classList.toggle('visible', visible === 0);
-    });
-  });
-})();
+// Cards + filter loaded from external script
 
 (function(){var btn=document.getElementById('nav-hamburger'),drawer=document.getElementById('nav-drawer');if(!btn||!drawer)return;btn.addEventListener('click',function(){var o=drawer.classList.toggle('is-open');btn.classList.toggle('is-open',o);document.body.style.overflow=o?'hidden':'';});drawer.querySelectorAll('.drawer-link').forEach(function(l){l.addEventListener('click',function(){drawer.classList.remove('is-open');btn.classList.remove('is-open');document.body.style.overflow='';});});})();
 </script>
@@ -565,6 +496,7 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
   },{passive:true});
 })();
 </script>
+<script src="js/render-realizacie.js"></script>
 
 </body>
 </html>

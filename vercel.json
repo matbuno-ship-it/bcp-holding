@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/realizacia-domove-role.html", "destination": "/realizacia.html?id=domove-role" },
+    { "source": "/realizacia-avion.html", "destination": "/realizacia.html?id=avion" },
+    { "source": "/realizacia-malacky.html", "destination": "/realizacia.html?id=malacky" },
+    { "source": "/realizacia-detail.html", "destination": "/realizacia.html?id=detail" },
+    { "source": "/novinka-novy-web.html", "destination": "/novinka.html?id=novy-web" },
+    { "source": "/novinka-detail.html", "destination": "/novinka.html?id=malacky-bytovy-komplex" }
+  ]
+}

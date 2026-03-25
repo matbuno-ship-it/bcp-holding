@@ -6,16 +6,16 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Novinky – BCP HOLDING</title>
-  <meta name="description" content="Aktuality, nové projekty, certifikáty a zmeny v legislatíve zo sveta BCP HOLDING s.r.o. — elektroinštalácie Slovensko." />
+  <title id="page-title">Novinka — BCP HOLDING</title>
+  <meta name="description" content="Detail novinky — BCP HOLDING s.r.o." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --black:#07001f; --black-2:#0a0028; --purple:#6e45ff; --purple-2:#a990ff;
-      --purple-3:#c6b5ff; --green:#3dfd98; --white:#ffffff; --grey:#9895a1;
+      --black:#07001f; --purple:#6e45ff; --purple-2:#a990ff; --purple-3:#c6b5ff;
+      --green:#3dfd98; --white:#ffffff; --grey:#9895a1;
       --border:rgba(110,69,255,0.25); --card-bg:rgba(255,255,255,0.03);
     }
     html { scroll-behavior: smooth; }
@@ -27,9 +27,8 @@
     .orb-purple { background: rgba(110,69,255,.22); }
     .orb-green  { background: rgba(61,253,152,.14); }
     .txt-green { color: var(--green); } .txt-purple { color: var(--purple-2); }
+
     .badge { display:inline-flex; align-items:center; gap:.45rem; background:rgba(110,69,255,.12); border:1px solid rgba(110,69,255,.35); color:var(--purple-3); padding:.3rem .85rem; border-radius:999px; font-size:.78rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
-    .badge-dot { width:6px; height:6px; border-radius:50%; background:var(--green); flex-shrink:0; animation:pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{ opacity:1; } 50%{ opacity:.4; } }
     .btn { display:inline-flex; align-items:center; gap:.5rem; padding:.75rem 1.6rem; border-radius:10px; font-size:.9rem; font-weight:600; cursor:pointer; transition:all .22s ease; text-decoration:none; border:none; letter-spacing:.02em; }
     .btn-primary { background:var(--purple); color:var(--white); box-shadow:0 0 28px rgba(110,69,255,.45); }
     .btn-primary:hover { background:#7e58ff; transform:translateY(-2px); }
@@ -71,60 +70,92 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
     .nav-drawer .drawer-cta .btn { width:100%; text-align:center; padding:.9rem 1rem; font-size:1rem; }
     @media (max-width:768px) { .nav-links { display:none; } .nav-hamburger { display:flex; } }
 
-    /* PAGE HERO */
-    .page-hero { padding:3rem 0 60px; position:relative; overflow:hidden; border-bottom:1px solid rgba(255,255,255,.06); }
-    .page-hero .container { position:relative; z-index:2; }
-    .breadcrumb { display:flex; align-items:center; gap:.5rem; font-size:.8rem; color:var(--grey); margin-bottom:1.2rem; }
+    /* BREADCRUMB */
+    .breadcrumb-bar { padding: 2rem 0 0; }
+    .breadcrumb { display:flex; align-items:center; gap:.5rem; font-size:.8rem; color:var(--grey); padding:.6rem 0; flex-wrap:wrap; }
     .breadcrumb a { color:var(--grey); text-decoration:none; transition:color .2s; }
     .breadcrumb a:hover { color:var(--white); }
     .breadcrumb-sep { opacity:.4; }
-    .page-hero h1 { font-size:clamp(2rem,4vw,3rem); font-weight:800; letter-spacing:-.03em; line-height:1.15; margin:1rem 0 1rem; max-width:600px; }
-    .page-hero p { font-size:1rem; color:var(--grey); max-width:520px; line-height:1.7; }
 
-    /* FILTER */
-    .filter-bar { padding:2rem 0 0; }
-    .filter-wrap { display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; }
-    .filter-btn { padding:.45rem 1.1rem; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--grey); font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer; transition:all .2s; letter-spacing:.02em; }
-    .filter-btn:hover { color:var(--white); border-color:rgba(255,255,255,.3); }
-    .filter-btn.active { background:var(--purple); color:var(--white); border-color:var(--purple); box-shadow:0 0 18px rgba(110,69,255,.4); }
+    /* ARTICLE HERO */
+    .article-hero { padding:1.5rem 0 3rem; position:relative; overflow:hidden; border-bottom:1px solid rgba(255,255,255,.06); }
+    .article-hero .container { position:relative; z-index:2; }
+    .article-hero .cat-badge {
+      display:inline-block; font-size:.72rem; font-weight:600;
+      text-transform:uppercase; letter-spacing:.06em;
+      padding:.3rem .85rem; border-radius:999px; margin-bottom:1rem;
+      background:rgba(110,69,255,.2); color:var(--purple-3);
+      border:1px solid rgba(110,69,255,.35);
+    }
+    .article-hero h1 { font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; letter-spacing:-.03em; line-height:1.2; margin-bottom:1.2rem; max-width:780px; }
+    .article-meta { display:flex; align-items:center; gap:1.5rem; font-size:.82rem; color:var(--grey); flex-wrap:wrap; margin-bottom:2rem; }
+    .article-meta span { display:flex; align-items:center; gap:.35rem; }
+    .article-cover { width:100%; aspect-ratio:21/9; object-fit:cover; border-radius:16px; border:1px solid rgba(255,255,255,.08); display:block; }
+    @media (max-width:600px) { .article-cover { aspect-ratio:16/9; } }
 
-    /* NEWS GRID */
-    .news-section { padding:3rem 0 5rem; position:relative; overflow:hidden; }
-    .news-grid-full { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
-    @media (max-width:900px) { .news-grid-full { grid-template-columns:1fr 1fr; } }
-    @media (max-width:580px) { .news-grid-full { grid-template-columns:1fr; } }
+    /* ARTICLE LAYOUT */
+    .article-layout {
+      padding:3.5rem 0 5rem; position:relative; overflow:hidden;
+    }
+    .article-inner {
+      display:grid; grid-template-columns:1fr 300px; gap:4rem; align-items:start;
+    }
+    @media (max-width:860px) { .article-inner { grid-template-columns:1fr; gap:3rem; } }
 
-    .news-card { background:var(--card-bg); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:transform .25s, border-color .25s; display:flex; flex-direction:column; }
-    .news-card:hover { transform:translateY(-4px); border-color:rgba(110,69,255,.55); }
-    .news-card.hidden { display:none; }
-    .news-img { position:relative; aspect-ratio:16/9; overflow:hidden; flex-shrink:0; }
-    .news-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s; }
-    .news-card:hover .news-img img { transform:scale(1.04); }
-    .news-cat-badge { position:absolute; top:.85rem; left:.85rem; font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em; padding:.25rem .7rem; border-radius:999px; color:var(--white); backdrop-filter:blur(6px); }
-    .cat-projekt     { background:rgba(110,69,255,.8); }
-    .cat-spolocnost  { background:rgba(61,253,152,.8); color:#07001f; }
-    .cat-legislativa { background:rgba(255,160,40,.8); color:#07001f; }
-    .cat-technika    { background:rgba(40,180,255,.8); color:#07001f; }
-    .news-body { padding:1.4rem 1.5rem; flex:1; display:flex; flex-direction:column; }
-    .news-date { font-size:.75rem; color:var(--grey); margin-bottom:.55rem; }
-    .news-title { font-size:1rem; font-weight:700; letter-spacing:-.01em; line-height:1.4; margin-bottom:.5rem; }
-    .news-desc { font-size:.87rem; color:var(--grey); line-height:1.65; margin-bottom:1.1rem; flex:1; }
-    .news-link { font-size:.82rem; font-weight:600; color:var(--green); text-decoration:none; transition:opacity .2s; display:inline-flex; align-items:center; gap:.3rem; }
-    .news-link:hover { opacity:.7; }
+    /* Article body */
+    .article-body h2 { font-size:1.4rem; font-weight:800; letter-spacing:-.025em; margin:2.2rem 0 .8rem; line-height:1.3; }
+    .article-body h2:first-child { margin-top:0; }
+    .article-body h3 { font-size:1.1rem; font-weight:700; margin:1.8rem 0 .6rem; }
+    .article-body p { color:var(--grey); font-size:.97rem; line-height:1.8; margin-bottom:1rem; }
+    .article-body ul, .article-body ol { margin:0 0 1.2rem 1.2rem; display:flex; flex-direction:column; gap:.45rem; }
+    .article-body li { color:var(--grey); font-size:.95rem; line-height:1.7; }
+    .article-body strong { color:var(--white); font-weight:700; }
+    .article-body a { color:var(--green); text-decoration:none; border-bottom:1px solid rgba(61,253,152,.3); transition:border-color .2s; }
+    .article-body a:hover { border-color:var(--green); }
+    .article-highlight {
+      background:rgba(110,69,255,.08); border:1px solid rgba(110,69,255,.25);
+      border-left:3px solid var(--purple-2);
+      border-radius:0 12px 12px 0; padding:1.1rem 1.4rem;
+      margin:1.5rem 0;
+    }
+    .article-highlight p { color:var(--purple-3); margin:0; font-style:italic; font-size:.95rem; }
 
-    /* FEATURED (first article — wide) */
-    .news-featured { grid-column:span 2; flex-direction:row; }
-    @media (max-width:900px) { .news-featured { grid-column:span 2; flex-direction:column; } }
-    @media (max-width:580px) { .news-featured { grid-column:span 1; } }
-    .news-featured .news-img { aspect-ratio:auto; min-height:260px; flex:1; }
-    .news-featured .news-body { flex:1; justify-content:center; }
-    .news-featured .news-title { font-size:1.2rem; }
+    .article-tags { margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,.06); display:flex; flex-wrap:wrap; gap:.45rem; align-items:center; }
+    .article-tags span { font-size:.78rem; color:var(--grey); }
+    .tag-chip { font-size:.75rem; font-weight:600; padding:.25rem .75rem; border-radius:999px; background:rgba(110,69,255,.1); border:1px solid rgba(110,69,255,.25); color:var(--purple-3); }
 
-    /* PAGINATION */
-    .pagination { display:flex; align-items:center; justify-content:center; gap:.5rem; margin-top:3rem; }
-    .pag-btn { width:38px; height:38px; border-radius:10px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--grey); font-family:inherit; font-size:.88rem; font-weight:600; cursor:pointer; transition:all .2s; display:grid; place-items:center; }
-    .pag-btn:hover { border-color:var(--purple-2); color:var(--white); }
-    .pag-btn.active { background:var(--purple); color:var(--white); border-color:var(--purple); }
+    /* Share */
+    .article-share { margin-top:2rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,.06); display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+    .share-label { font-size:.82rem; color:var(--grey); }
+    .share-btn { display:inline-flex; align-items:center; gap:.4rem; padding:.4rem .9rem; border-radius:8px; border:1px solid rgba(255,255,255,.12); background:transparent; color:var(--grey); font-family:inherit; font-size:.8rem; font-weight:600; cursor:pointer; transition:all .2s; text-decoration:none; }
+    .share-btn:hover { border-color:var(--purple-2); color:var(--white); }
+
+    /* Sidebar */
+    .article-sidebar { position:sticky; top:96px; display:flex; flex-direction:column; gap:1.25rem; }
+    .sidebar-card { background:var(--card-bg); border:1px solid var(--border); border-radius:14px; padding:1.4rem; }
+    .sidebar-card h3 { font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--grey); margin-bottom:1rem; }
+    .sb-info-row { display:flex; flex-direction:column; gap:.15rem; padding:.6rem 0; border-bottom:1px solid rgba(255,255,255,.06); }
+    .sb-info-row:last-of-type { border-bottom:none; }
+    .sb-info-label { font-size:.7rem; color:var(--grey); text-transform:uppercase; letter-spacing:.05em; }
+    .sb-info-value { font-size:.88rem; font-weight:600; }
+
+    .sidebar-cta .btn { width:100%; justify-content:center; font-size:.88rem; margin-bottom:.6rem; }
+
+    /* Related news */
+    .related-section { padding:3rem 0 5rem; border-top:1px solid rgba(255,255,255,.06); }
+    .related-section h2 { font-size:1.3rem; font-weight:800; letter-spacing:-.02em; margin-bottom:1.5rem; }
+    .related-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
+    @media (max-width:760px) { .related-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:480px) { .related-grid { grid-template-columns:1fr; } }
+    .rel-card { background:var(--card-bg); border:1px solid var(--border); border-radius:14px; overflow:hidden; text-decoration:none; color:inherit; transition:transform .25s, border-color .25s; display:block; }
+    .rel-card:hover { transform:translateY(-4px); border-color:rgba(110,69,255,.55); }
+    .rel-img { aspect-ratio:16/9; overflow:hidden; }
+    .rel-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s; }
+    .rel-card:hover .rel-img img { transform:scale(1.05); }
+    .rel-body { padding:1rem 1.1rem; }
+    .rel-cat { font-size:.7rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--green); margin-bottom:.35rem; }
+    .rel-title { font-size:.9rem; font-weight:700; line-height:1.4; }
+    .rel-date { font-size:.75rem; color:var(--grey); margin-top:.3rem; }
 
     /* FOOTER */
     footer { border-top:1px solid rgba(255,255,255,.07); padding:3rem 0 2rem; }
@@ -175,37 +206,62 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
   <div class="drawer-cta"><a href="kontakt.html" class="btn btn-primary">Nezáväzná ponuka</a></div>
 </div>
 
-<header class="page-hero">
-  <div class="orb orb-purple" style="width:600px;height:600px;top:-200px;left:50%;transform:translateX(-50%);"></div>
-  <div class="orb orb-green"  style="width:280px;height:280px;bottom:-40px;right:-60px;"></div>
+<!-- BREADCRUMB -->
+<div class="breadcrumb-bar">
   <div class="container">
-    <div class="breadcrumb">
-      <a href="index.html">Domov</a><span class="breadcrumb-sep">/</span><span>Novinky</span>
-    </div>
-    <div class="badge"><span class="badge-dot"></span> Aktuality</div>
-    <h1>Novinky zo sveta<br><span class="txt-green">BCP HOLDING</span></h1>
-    <p>Projekty, certifikáty, zmeny v legislatíve aj tipy pre investorov a developerov na celom Slovensku.</p>
-  </div>
-</header>
-
-<div class="filter-bar">
-  <div class="container">
-    <div class="filter-wrap">
-      <button class="filter-btn active" data-cat="all">Všetky</button>
-      <button class="filter-btn" data-cat="Spoločnosť">Spoločnosť</button>
+    <div class="breadcrumb" id="breadcrumb">
+      <a href="index.html">Domov</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="novinky.html">Novinky</a>
+      <span class="breadcrumb-sep">/</span>
+      <span id="breadcrumb-title"></span>
     </div>
   </div>
 </div>
 
-<section class="news-section">
-  <div class="orb orb-purple" style="width:400px;height:400px;top:0;right:-100px;"></div>
+<!-- ARTICLE HERO -->
+<section class="article-hero">
+  <div class="orb orb-purple" style="width:500px;height:500px;top:-150px;left:50%;transform:translateX(-50%);"></div>
   <div class="container">
-    <div class="news-grid-full" id="news-grid">
+    <span class="cat-badge" id="news-category"></span>
+    <h1 id="news-title"></h1>
+    <div class="article-meta" id="news-meta"></div>
+    <img class="article-cover" id="news-cover" src="" alt="" />
+  </div>
+</section>
 
-      <!-- Cards rendered dynamically from data/novinky.json -->
+<!-- ARTICLE CONTENT + SIDEBAR -->
+<section class="article-layout">
+  <div class="orb orb-green" style="width:350px;height:350px;top:100px;right:-80px;"></div>
+  <div class="container">
+    <div class="article-inner">
 
+      <!-- BODY -->
+      <article class="article-body" id="article-body"></article>
+
+      <!-- SIDEBAR -->
+      <aside class="article-sidebar">
+
+        <div class="sidebar-card" id="news-sidebar">
+          <h3>O článku</h3>
+        </div>
+
+        <div class="sidebar-card sidebar-cta">
+          <h3>Máte projekt?</h3>
+          <a href="kontakt.html" class="btn btn-primary">Kontaktujte nás</a>
+          <a href="realizacie.html" class="btn btn-ghost">Pozrieť realizácie</a>
+        </div>
+
+      </aside>
     </div>
+  </div>
+</section>
 
+<!-- RELATED ARTICLES -->
+<section class="related-section">
+  <div class="container">
+    <h2>Ďalšie <span class="txt-green">novinky</span></h2>
+    <div class="related-grid" id="related-grid"></div>
   </div>
 </section>
 
@@ -223,13 +279,12 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
         <li><a href="index.html#sluzby">Slaboprúdové systémy</a></li>
         <li><a href="index.html#sluzby">Verejné osvetlenie</a></li>
         <li><a href="index.html#sluzby">EPS a HSP</a></li>
-        <li><a href="index.html#sluzby">CCTV systémy</a></li>
+        <li><a href="index.html#sluzby">KS · Kamerový systém</a></li>
       </ul></div>
       <div class="footer-col"><h4>Navigácia</h4><ul>
         <li><a href="realizacie.html">Realizácie</a></li>
         <li><a href="novinky.html">Novinky</a></li>
         <li><a href="index.html#segmenty">Pre koho</a></li>
-        <li><a href="index.html#postup">Ako pracujeme</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
       </ul></div>
       <div class="footer-col"><h4>Kontakt</h4><ul>
@@ -239,17 +294,12 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
       </ul></div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 BCP HOLDING s.r.o. Všetky práva vyhradené.</span>
+      <span>&copy; 2025 BCP HOLDING s.r.o. Všetky práva vyhradené.</span>
       <span>Profesionálne elektroinštalácie · Slovensko</span>
     </div>
   </div>
 </footer>
-
-<script>
-// Filter logic is now in js/render-novinky.js
-
-(function(){var btn=document.getElementById('nav-hamburger'),drawer=document.getElementById('nav-drawer');if(!btn||!drawer)return;btn.addEventListener('click',function(){var o=drawer.classList.toggle('is-open');btn.classList.toggle('is-open',o);document.body.style.overflow=o?'hidden':'';});drawer.querySelectorAll('.drawer-link').forEach(function(l){l.addEventListener('click',function(){drawer.classList.remove('is-open');btn.classList.remove('is-open');document.body.style.overflow='';});});})();
-</script>
+<script>(function(){var btn=document.getElementById('nav-hamburger'),drawer=document.getElementById('nav-drawer');if(!btn||!drawer)return;btn.addEventListener('click',function(){var o=drawer.classList.toggle('is-open');btn.classList.toggle('is-open',o);document.body.style.overflow=o?'hidden':'';});drawer.querySelectorAll('.drawer-link').forEach(function(l){l.addEventListener('click',function(){drawer.classList.remove('is-open');btn.classList.remove('is-open');document.body.style.overflow='';});});})();</script>
 <script>
 (function(){
   var nav=document.querySelector('nav');
@@ -259,6 +309,7 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
   },{passive:true});
 })();
 </script>
-<script src="js/render-novinky.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="js/render-detail-novinka.js"></script>
 </body>
 </html>
