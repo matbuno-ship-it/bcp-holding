@@ -141,15 +141,7 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
     #form-message.error { background:rgba(248,113,113,.1); color:#f87171; border:1px solid rgba(248,113,113,.3); }
     .form-submit:disabled { opacity:.6; pointer-events:none; }
 
-    .form-group-checkbox { margin-bottom: 1.2rem; }
-    .checkbox-label { display:flex; align-items:flex-start; gap:.65rem; cursor:pointer; font-size:.82rem; color:var(--grey); line-height:1.5; }
-    .checkbox-label input[type="checkbox"] { position:absolute; opacity:0; width:0; height:0; }
-    .checkbox-custom { flex-shrink:0; width:20px; height:20px; border:1px solid rgba(255,255,255,.15); border-radius:5px; background:rgba(255,255,255,.04); transition:all .2s; position:relative; margin-top:1px; }
-    .checkbox-label input:checked + .checkbox-custom { background:var(--purple); border-color:var(--purple); }
-    .checkbox-label input:checked + .checkbox-custom::after { content:''; position:absolute; left:6px; top:2px; width:5px; height:10px; border:solid var(--white); border-width:0 2px 2px 0; transform:rotate(45deg); }
-    .checkbox-label input.invalid + .checkbox-custom { border-color:#f87171; }
-    .checkbox-text a { color:var(--purple-3); text-decoration:underline; transition:color .2s; }
-    .checkbox-text a:hover { color:var(--white); }
+
 
     /* MAP placeholder */
     .map-section { padding:0 0 5rem; }
@@ -359,19 +351,11 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
             <textarea id="cf-message" name="message" placeholder="Stručne popíšte váš projekt — rozsah prác, lokalitu, termín a akékoľvek špecifické požiadavky..." required></textarea>
             <span class="field-error"></span>
           </div>
-          <div class="form-group form-group-checkbox">
-            <label class="checkbox-label">
-              <input type="checkbox" id="cf-gdpr" name="gdprConsent" required />
-              <span class="checkbox-custom"></span>
-              <span class="checkbox-text">Súhlasím so spracovaním osobných údajov podľa <a href="ochrana-osobnych-udajov.html" target="_blank">zásad ochrany osobných údajov</a>.</span>
-            </label>
-            <span class="field-error"></span>
-          </div>
           <button type="submit" class="btn btn-primary form-submit" id="cf-submit">
             Odoslať dopyt
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </button>
-          <p class="form-note">Odpovieme do 24 hodín · Bez záväzkov · Chránené reCAPTCHA</p>
+          <p class="form-note">Odoslaním formuláru súhlasíte so spracovaním osobných údajov podľa <a href="ochrana-osobnych-udajov.html" target="_blank" style="color:var(--purple-2);text-decoration:underline;">zásad ochrany osobných údajov</a>. · Odpovieme do 24 hodín · Chránené reCAPTCHA</p>
         </form>
       </div>
 
@@ -549,17 +533,6 @@ document.querySelectorAll('.faq-q').forEach(function (btn) {
     });
   });
 
-  var gdprCb = document.getElementById('cf-gdpr');
-  if (gdprCb) {
-    gdprCb.addEventListener('change', function() {
-      if (gdprCb.checked) {
-        gdprCb.className = '';
-        var err = gdprCb.closest('.form-group').querySelector('.field-error');
-        if (err) err.textContent = '';
-      }
-    });
-  }
-
   form.querySelectorAll('input, textarea, select').forEach(function(el) {
     el.addEventListener('focus', loadRecaptcha, { once: true });
   });
@@ -572,13 +545,6 @@ document.querySelectorAll('.faq-q').forEach(function (btn) {
     var valid = true;
     fields.forEach(function(f) { if (!validateField(f)) valid = false; });
 
-    var gdprCheckbox = document.getElementById('cf-gdpr');
-    if (gdprCheckbox && !gdprCheckbox.checked) {
-      valid = false;
-      gdprCheckbox.className = 'invalid';
-      var gdprErr = gdprCheckbox.closest('.form-group').querySelector('.field-error');
-      if (gdprErr) gdprErr.textContent = 'Musíte súhlasiť so spracovaním osobných údajov';
-    }
     if (!valid) { showMsg('error', 'Prosím, vyplňte všetky povinné polia.'); return; }
 
     btn.disabled = true;
@@ -598,7 +564,6 @@ document.querySelectorAll('.faq-q').forEach(function (btn) {
               if (data.success) {
                 showMsg('success', 'Ďakujeme za váš dopyt! Ozveme sa vám do 24 hodín.');
                 form.reset();
-                if (gdprCb) gdprCb.checked = false;
                 form.querySelectorAll('.valid, .invalid').forEach(function(f) { f.className = ''; });
                 form.querySelectorAll('.field-error').forEach(function(f) { f.textContent = ''; });
               } else {
