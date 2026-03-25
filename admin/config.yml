@@ -2,8 +2,8 @@ backend:
   name: github
   repo: matbuno-ship-it/bcp-holding
   branch: main
-  auth_type: pkce
-  # app_id: YOUR_GITHUB_OAUTH_APP_CLIENT_ID
+  base_url: https://www.bcpholding.sk
+  auth_endpoint: /api/auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
