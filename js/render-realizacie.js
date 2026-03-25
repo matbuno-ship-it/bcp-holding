@@ -6,8 +6,18 @@
 
   // Category class mapping
   function catClass(category) {
-    if (category === 'Dátové rozvody') return 'cat-datove';
-    return 'cat-elektro';
+    var map = {
+      'Elektroinštalácia': 'cat-elektro',
+      'Verejné osvetlenie': 'cat-osvetlenie',
+      'Prípojky NN': 'cat-pripojky',
+      'Uzemnenie a bleskozvod': 'cat-uzemnenie',
+      'EPS a HSP': 'cat-eps',
+      'Štrukturovaná kabeláž': 'cat-kabelaz',
+      'EZS': 'cat-ezs',
+      'Kamerový systém': 'cat-kamery',
+      'SKV, ACS, DS': 'cat-skv'
+    };
+    return map[category] || 'cat-elektro';
   }
 
   fetch('/data/realizacie.json')

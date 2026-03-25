@@ -37,10 +37,6 @@
       var bc = document.getElementById('breadcrumb-title');
       if (bc) bc.textContent = item.title;
 
-      // Category badge
-      var catEl = document.getElementById('news-category');
-      if (catEl) catEl.textContent = item.category;
-
       // Title — wrap titleAccent in green span
       var h1 = document.getElementById('news-title');
       if (h1) {
@@ -80,16 +76,6 @@
 
         bodyEl.innerHTML = html;
 
-        // Tags
-        if (item.tags && item.tags.length) {
-          var tagsHtml = '<div class="article-tags"><span>Témy:</span>';
-          item.tags.forEach(function (t) {
-            tagsHtml += '<span class="tag-chip">' + t + '</span>';
-          });
-          tagsHtml += '</div>';
-          bodyEl.insertAdjacentHTML('beforeend', tagsHtml);
-        }
-
         // Share buttons
         var shareHtml = '<div class="article-share">'
           + '<span class="share-label">Zdieľať:</span>'
@@ -125,7 +111,6 @@
       if (sidebar) {
         var rows = [
           { label: 'Dátum', value: dateFormatted },
-          { label: 'Kategória', value: item.category },
           { label: 'Autor', value: item.author }
         ];
         var rowsHtml = '<h3>O článku</h3>';
@@ -149,7 +134,6 @@
           relHtml += '<a href="/novinky/' + rel.id + '" class="rel-card">'
             + '<div class="rel-img"><img src="' + rel.image + '" alt="' + rel.title + '" /></div>'
             + '<div class="rel-body">'
-            + '<div class="rel-cat">' + rel.category + '</div>'
             + '<div class="rel-title">' + rel.title + '</div>'
             + '<div class="rel-date">' + relDate + '</div>'
             + '</div></a>';

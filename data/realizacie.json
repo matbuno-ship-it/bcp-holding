@@ -12,11 +12,31 @@
       "client": "EHR STAV, s.r.o.",
       "type": "Silnoprúd + Slaboprúd",
       "gallery": [
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/1_2-1024x768.webp", "alt": "Domové role — pohľad 1", "featured": true },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/2_2-1-1024x768.webp", "alt": "Domové role — pohľad 2", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/3_2-1024x768.webp", "alt": "Domové role — pohľad 3", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/4_1-1-1024x768.webp", "alt": "Domové role — pohľad 4", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/5_1-1-1024x768.webp", "alt": "Domové role — pohľad 5", "featured": false }
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/1_2-1024x768.webp",
+          "alt": "Domové role — pohľad 1",
+          "featured": true
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/2_2-1-1024x768.webp",
+          "alt": "Domové role — pohľad 2",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/3_2-1024x768.webp",
+          "alt": "Domové role — pohľad 3",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/4_1-1-1024x768.webp",
+          "alt": "Domové role — pohľad 4",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/5_1-1-1024x768.webp",
+          "alt": "Domové role — pohľad 5",
+          "featured": false
+        }
       ],
       "about": "Spoločnosť BCP HOLDING s.r.o. sa zúčastnila na výstavbe bytového projektu Domové role v Bratislave. V rámci tejto zákazky sme realizovali komplexné silnoprúdové aj slaboprúdové elektroinštalácie podľa požiadaviek generálneho dodávateľa EHR STAV, s.r.o.",
       "aboutExtra": "Primárnym cieľom bola realizácia slaboprúdových a silnoprúdových rozvodov v novej bytovej výstavbe, vrátane všetkých spoločných priestorov, technických miestností a bytových jednotiek.",
@@ -26,8 +46,10 @@
         "Inštalácia v spoločných priestoroch a technických miestnostiach",
         "Revízia elektrickej inštalácie a odovzdávacia dokumentácia"
       ],
-      "tags": ["Elektroinštalácia", "Silnoprúd", "Slaboprúd", "Bratislava", "Bytová výstavba"],
-      "relatedIds": ["avion", "malacky"]
+      "relatedIds": [
+        "avion",
+        "malacky"
+      ]
     },
     {
       "id": "avion",
@@ -41,18 +63,66 @@
       "client": "DYNAMIK CONSTRUCTION, s.r.o.",
       "type": "Silnoprúd + Slaboprúd + Dátové rozvody",
       "gallery": [
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/7_1-1024x768.webp", "alt": "Avion — pohľad 1", "featured": true },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/3_3-1-1024x768.webp", "alt": "Avion — pohľad 2", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/4_1-2-1024x768.webp", "alt": "Avion — pohľad 3", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/5_1-2-1024x768.webp", "alt": "Avion — pohľad 4", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/6_1-1-1024x768.webp", "alt": "Avion — pohľad 5", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/2_4-1024x578.webp", "alt": "Avion — pohľad 6", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/8_1-1-768x1024.webp", "alt": "Avion — pohľad 7", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/9_1-768x1024.webp", "alt": "Avion — pohľad 8", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/10_1-768x1024.webp", "alt": "Avion — pohľad 9", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/11_1-768x1024.webp", "alt": "Avion — pohľad 10", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/12_1-768x1024.webp", "alt": "Avion — pohľad 11", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/1_3-1024x320.webp", "alt": "Avion — pohľad 12", "featured": false }
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/7_1-1024x768.webp",
+          "alt": "Avion — pohľad 1",
+          "featured": true
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/3_3-1-1024x768.webp",
+          "alt": "Avion — pohľad 2",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/4_1-2-1024x768.webp",
+          "alt": "Avion — pohľad 3",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/5_1-2-1024x768.webp",
+          "alt": "Avion — pohľad 4",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/6_1-1-1024x768.webp",
+          "alt": "Avion — pohľad 5",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/2_4-1024x578.webp",
+          "alt": "Avion — pohľad 6",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/8_1-1-768x1024.webp",
+          "alt": "Avion — pohľad 7",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/9_1-768x1024.webp",
+          "alt": "Avion — pohľad 8",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/10_1-768x1024.webp",
+          "alt": "Avion — pohľad 9",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/11_1-768x1024.webp",
+          "alt": "Avion — pohľad 10",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/12_1-768x1024.webp",
+          "alt": "Avion — pohľad 11",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/1_3-1024x320.webp",
+          "alt": "Avion — pohľad 12",
+          "featured": false
+        }
       ],
       "about": "Spoločnosť BCP HOLDING s.r.o. realizovala rozsiahle elektroinštalačné práce pre projekt Avion v Bratislave. V spolupráci s generálnym dodávateľom DYNAMIK CONSTRUCTION, s.r.o. sme zabezpečili kompletné silnoprúdové a slaboprúdové inštalácie vrátane dátových rozvodov.",
       "aboutExtra": "Projekt zahŕňal realizáciu elektroinštalácií v objekte vrátane všetkých technologických systémov potrebných pre moderný komerčný objekt — od silnoprúdových rozvodov cez dátovú infraštruktúru až po bezpečnostné systémy.",
@@ -65,8 +135,10 @@
         "KS — kamerový systém",
         "Revízia a odovzdávacia dokumentácia"
       ],
-      "tags": ["Dátové rozvody", "Elektroinštalácia", "EPS", "HSP", "KS", "Bratislava"],
-      "relatedIds": ["domove-role", "malacky"]
+      "relatedIds": [
+        "domove-role",
+        "malacky"
+      ]
     },
     {
       "id": "malacky",
@@ -80,9 +152,21 @@
       "client": "Madip Investment, s.r.o.",
       "type": "Silnoprúd + Slaboprúd",
       "gallery": [
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/1-1-1024x732.webp", "alt": "Rekonštrukcia elektroinštalácie — pohľad 1", "featured": true },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/2-1-1024x728.webp", "alt": "Rekonštrukcia elektroinštalácie — pohľad 2", "featured": false },
-        { "url": "https://codeartistry.eu/wp-content/uploads/2025/02/3-1-986x1024.webp", "alt": "Rekonštrukcia elektroinštalácie — pohľad 3", "featured": false }
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/1-1-1024x732.webp",
+          "alt": "Rekonštrukcia elektroinštalácie — pohľad 1",
+          "featured": true
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/2-1-1024x728.webp",
+          "alt": "Rekonštrukcia elektroinštalácie — pohľad 2",
+          "featured": false
+        },
+        {
+          "url": "https://codeartistry.eu/wp-content/uploads/2025/02/3-1-986x1024.webp",
+          "alt": "Rekonštrukcia elektroinštalácie — pohľad 3",
+          "featured": false
+        }
       ],
       "about": "Spoločnosť BCP HOLDING s.r.o. realizovala rekonštrukciu elektroinštalácií pre investora Madip Investment, s.r.o. v Michalovciach. Cieľom projektu bola kompletná obnova zastaralých elektroinštalácií a ich uvedenie do súladu s aktuálnymi normami a požiadavkami.",
       "aboutExtra": "Primárnym cieľom bola realizácia slaboprúdových a silnoprúdových rozvodov v rámci rekonštrukcie historického alebo technologicky zastaraného objektu, pričom sme zabezpečili minimálne narušenie prevádzky počas realizácie.",
@@ -93,8 +177,10 @@
         "Uzemnenie a ochrana pred bleskom",
         "Revízia elektrickej inštalácie a odovzdávacia dokumentácia"
       ],
-      "tags": ["Elektroinštalácia", "Rekonštrukcia", "Silnoprúd", "Slaboprúd", "Michalovce"],
-      "relatedIds": ["domove-role", "avion"]
+      "relatedIds": [
+        "domove-role",
+        "avion"
+      ]
     }
   ]
 }

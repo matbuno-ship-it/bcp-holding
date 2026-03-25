@@ -88,14 +88,6 @@
         }).join('');
       }
 
-      // Tags
-      var tagsEl = document.getElementById('proj-tags');
-      if (tagsEl && item.tags) {
-        tagsEl.innerHTML = item.tags.map(function (t) {
-          return '<span class="tag-chip">' + t + '</span>';
-        }).join('');
-      }
-
       // Sidebar
       var sidebar = document.getElementById('proj-sidebar');
       if (sidebar) {

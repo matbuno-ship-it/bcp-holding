@@ -24,8 +24,8 @@ collections:
             widget: list
             summary: "{{fields.title}} — {{fields.category}}"
             fields:
-              - { name: id, label: "URL slug", widget: string, hint: "Nechajte prázdne — vyplní sa automaticky z nadpisu. Alebo zadajte vlastný (bez medzier a diakritiky, napr. 'domove-role').", required: false }
-              - { name: category, label: Kategória, widget: select, options: ["Elektroinštalácia", "Dátové rozvody"] }
+              - { name: id, label: "URL slug", widget: string, hint: "Nechajte prázdne — vyplní sa automaticky z nadpisu.", required: false }
+              - { name: category, label: Kategória, widget: select, options: ["Elektroinštalácia", "Verejné osvetlenie", "Prípojky NN", "Uzemnenie a bleskozvod", "EPS a HSP", "Štrukturovaná kabeláž", "EZS", "Kamerový systém", "SKV, ACS, DS"] }
               - { name: title, label: "Názov projektu", widget: string }
               - { name: titleAccent, label: "Zvýraznený text v nadpise", widget: string, hint: "Časť nadpisu, ktorá bude zelená na detail stránke" }
               - { name: description, label: "Krátky popis (pre kartu)", widget: text }
@@ -48,10 +48,6 @@ collections:
                 label: "Rozsah prác"
                 widget: list
                 field: { name: item, label: Položka, widget: string }
-              - name: tags
-                label: Štítky
-                widget: list
-                field: { name: tag, label: Štítok, widget: string }
               - name: relatedIds
                 label: "Súvisiace projekty (ID)"
                 widget: list
@@ -71,8 +67,7 @@ collections:
             widget: list
             summary: "{{fields.title}} — {{fields.date}}"
             fields:
-              - { name: id, label: "URL slug", widget: string, hint: "Nechajte prázdne — vyplní sa automaticky z nadpisu. Alebo zadajte vlastný (bez medzier a diakritiky).", required: false }
-              - { name: category, label: Kategória, widget: select, options: ["Spoločnosť", "Projekt", "Legislatíva", "Technika"] }
+              - { name: id, label: "URL slug", widget: string, hint: "Nechajte prázdne — vyplní sa automaticky z nadpisu.", required: false }
               - { name: title, label: Nadpis, widget: string }
               - { name: titleAccent, label: "Zvýraznený text v nadpise", widget: string, hint: "Časť nadpisu, ktorá bude zelená" }
               - { name: date, label: Dátum, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
@@ -81,13 +76,9 @@ collections:
               - { name: description, label: "Krátky popis (pre kartu)", widget: text }
               - { name: image, label: "Obrázok karty", widget: image }
               - { name: coverImage, label: "Cover obrázok (veľký, na detail stránke)", widget: image }
-              - { name: body, label: "Obsah článku", widget: markdown, hint: "Píšte text, pridávajte nadpisy, zoznamy, citácie. Pre citáciu použite > na začiatku riadku." }
-              - name: tags
-                label: Štítky
-                widget: list
-                field: { name: tag, label: Štítok, widget: string }
+              - { name: body, label: "Obsah článku", widget: markdown, hint: "Píšte text, pridávajte nadpisy, zoznamy, citácie." }
               - name: relatedIds
-                label: "Súvisiace články (ID)"
+                label: "Súvisiace novinky (ID)"
                 widget: list
                 required: false
-                field: { name: relId, label: "ID článku", widget: string }
+                field: { name: relId, label: "ID novinky", widget: string }
