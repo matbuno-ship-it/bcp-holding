@@ -13,6 +13,8 @@ locale: "sk"
 collections:
   - name: "realizacie"
     label: "Realizácie"
+    icon: "bolt"
+    description: "Správa portfólia realizácií — pridávanie, editácia, mazanie projektov"
     files:
       - name: "realizacie-data"
         label: "Zoznam realizácií"
@@ -22,40 +24,50 @@ collections:
           - name: items
             label: Realizácie
             widget: list
-            summary: "{{fields.title}} — {{fields.category}}"
+            summary: "{{fields.title}} — {{fields.location}} ({{fields.category}})"
+            label_singular: "realizáciu"
+            add_to_top: true
+            minimize_collapsed: true
             fields:
-              - { name: id, label: "URL slug", widget: string, hint: "Nechajte prázdne — vyplní sa automaticky z nadpisu.", required: false }
-              - { name: category, label: Kategória, widget: select, options: ["Elektroinštalácia", "Verejné osvetlenie", "Prípojky NN", "Uzemnenie a bleskozvod", "EPS a HSP", "Štrukturovaná kabeláž", "EZS", "Kamerový systém", "SKV, ACS, DS"] }
-              - { name: title, label: "Názov projektu", widget: string }
-              - { name: titleAccent, label: "Zvýraznený text v nadpise", widget: string, hint: "Časť nadpisu, ktorá bude zelená na detail stránke" }
-              - { name: description, label: "Krátky popis (pre kartu)", widget: text }
-              - { name: image, label: "Hlavný obrázok", widget: image }
-              - { name: location, label: Lokalita, widget: string }
-              - { name: year, label: Rok, widget: string, required: false }
-              - { name: client, label: Klient, widget: string }
-              - { name: type, label: "Typ prác", widget: string, hint: "Napr. 'Silnoprúd + Slaboprúd'" }
+              - { name: title, label: "Názov projektu", widget: string, hint: "Napr. 'Bytový komplex Domové role'" }
+              - { name: category, label: "Typ služby", widget: select, options: ["Elektroinštalácia", "Verejné osvetlenie", "Prípojky NN", "Uzemnenie a bleskozvod", "EPS a HSP", "Štrukturovaná kabeláž", "EZS", "Kamerový systém", "SKV, ACS, DS"] }
+              - { name: location, label: "Lokalita", widget: string, hint: "Napr. 'Bratislava'" }
+              - { name: client, label: "Klient", widget: string, hint: "Názov firmy alebo investora" }
+              - { name: description, label: "Krátky popis", widget: text, hint: "1-2 vety — zobrazí sa na karte v zozname realizácií" }
+              - { name: image, label: "Hlavná fotka", widget: image, hint: "Fotka projektu — zobrazí sa na karte aj ako cover" }
+              - { name: year, label: "Rok realizácie", widget: string, required: false }
+              - { name: type, label: "Typ prác", widget: string, hint: "Napr. 'Silnoprúd + Slaboprúd'", required: false }
               - name: gallery
-                label: "Galéria (fotky)"
+                label: "Galéria"
                 widget: list
-                summary: "{{fields.alt}}"
+                label_singular: "fotku"
+                hint: "Fotky z realizácie. Prvá fotka bude veľká."
+                minimize_collapsed: true
                 fields:
-                  - { name: url, label: Obrázok, widget: image }
-                  - { name: alt, label: "Popis obrázku", widget: string }
-                  - { name: featured, label: "Veľký obrázok (prvý v galérii)", widget: boolean, default: false }
-              - { name: about, label: "O projekte (prvý odsek)", widget: text }
-              - { name: aboutExtra, label: "O projekte (druhý odsek)", widget: text, required: false }
+                  - { name: url, label: "Fotka", widget: image }
+                  - { name: alt, label: "Popis fotky", widget: string, hint: "Krátky popis, napr. 'Rozvádzač — hlavná chodba'" }
+                  - { name: featured, label: "Veľká fotka", widget: boolean, default: false, hint: "Zaškrtnite pre prvú/hlavnú fotku" }
+              - { name: about, label: "O projekte", widget: text, hint: "Hlavný odsek o projekte — čo sa robilo, pre koho" }
+              - { name: aboutExtra, label: "Doplňujúci text", widget: text, required: false, hint: "Voliteľný druhý odsek" }
               - name: scope
                 label: "Rozsah prác"
                 widget: list
-                field: { name: item, label: Položka, widget: string }
+                label_singular: "položku"
+                hint: "Zoznam prác, napr. 'Silnoprúdové rozvody — rozvádzače a kabeláž'"
+                field: { name: item, label: "Položka", widget: string }
+              - { name: id, label: "URL adresa", widget: string, required: false, hint: "Automaticky sa vyplní z názvu. Nemusíte meniť." }
+              - { name: titleAccent, label: "Zvýraznený text", widget: string, required: false, hint: "Časť názvu zvýraznená zelenou farbou na detail stránke" }
               - name: relatedIds
-                label: "Súvisiace projekty (ID)"
+                label: "Súvisiace realizácie"
                 widget: list
                 required: false
-                field: { name: relId, label: "ID projektu", widget: string }
+                hint: "Voliteľné — ID iných realizácií na zobrazenie v sekcii 'Ďalšie realizácie'"
+                field: { name: relId, label: "ID", widget: string }
 
   - name: "novinky"
     label: "Novinky"
+    icon: "pencil"
+    description: "Správa noviniek a článkov"
     files:
       - name: "novinky-data"
         label: "Zoznam noviniek"
@@ -66,19 +78,23 @@ collections:
             label: Novinky
             widget: list
             summary: "{{fields.title}} — {{fields.date}}"
+            label_singular: "novinku"
+            add_to_top: true
+            minimize_collapsed: true
             fields:
-              - { name: id, label: "URL slug", widget: string, hint: "Nechajte prázdne — vyplní sa automaticky z nadpisu.", required: false }
-              - { name: title, label: Nadpis, widget: string }
-              - { name: titleAccent, label: "Zvýraznený text v nadpise", widget: string, hint: "Časť nadpisu, ktorá bude zelená" }
-              - { name: date, label: Dátum, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
-              - { name: author, label: Autor, widget: string, default: "BCP HOLDING" }
-              - { name: readTime, label: "Čas čítania", widget: string, default: "2 min čítania" }
-              - { name: description, label: "Krátky popis (pre kartu)", widget: text }
-              - { name: image, label: "Obrázok karty", widget: image }
-              - { name: coverImage, label: "Cover obrázok (veľký, na detail stránke)", widget: image }
-              - { name: body, label: "Obsah článku", widget: markdown, hint: "Píšte text, pridávajte nadpisy, zoznamy, citácie." }
+              - { name: title, label: "Nadpis", widget: string }
+              - { name: date, label: "Dátum publikácie", widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+              - { name: description, label: "Krátky popis", widget: text, hint: "1-2 vety — zobrazí sa na karte v zozname noviniek" }
+              - { name: image, label: "Obrázok karty", widget: image, hint: "Menší obrázok pre náhľad v zozname" }
+              - { name: coverImage, label: "Veľký obrázok", widget: image, hint: "Široký obrázok na vrchu článku" }
+              - { name: body, label: "Obsah článku", widget: markdown, hint: "Píšte text, pridávajte nadpisy (##), zoznamy (-), tučné (**text**). Pre citáciu použite > na začiatku riadku." }
+              - { name: author, label: "Autor", widget: string, default: "BCP HOLDING", required: false }
+              - { name: readTime, label: "Čas čítania", widget: string, default: "2 min čítania", required: false }
+              - { name: id, label: "URL adresa", widget: string, required: false, hint: "Automaticky sa vyplní z nadpisu. Nemusíte meniť." }
+              - { name: titleAccent, label: "Zvýraznený text", widget: string, required: false, hint: "Časť nadpisu zvýraznená zelenou farbou" }
               - name: relatedIds
-                label: "Súvisiace novinky (ID)"
+                label: "Súvisiace novinky"
                 widget: list
                 required: false
-                field: { name: relId, label: "ID novinky", widget: string }
+                hint: "Voliteľné — ID iných noviniek"
+                field: { name: relId, label: "ID", widget: string }

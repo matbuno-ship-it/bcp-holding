@@ -4,6 +4,83 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin — BCP HOLDING</title>
+  <style>
+    /* Custom login page */
+    [data-testid="login-page"],
+    .notif__container + div {
+      background: #0a0a12 !important;
+    }
+
+    /* Login button */
+    [data-testid="login-button"] {
+      background: #7C3AED !important;
+      border-radius: 12px !important;
+      padding: 14px 32px !important;
+      font-weight: 700 !important;
+      font-size: 15px !important;
+      transition: background 0.2s !important;
+    }
+    [data-testid="login-button"]:hover {
+      background: #6D28D9 !important;
+    }
+
+    /* Replace Decap logo with BCP HOLDING branding */
+    [data-testid="login-page"] img,
+    [data-testid="login-page"] svg {
+      display: none !important;
+    }
+    [data-testid="login-page"]::before {
+      content: '';
+      display: block;
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      background-image: url('/favicon.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    [data-testid="login-page"]::after {
+      content: 'BCP HOLDING';
+      display: block;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+
+    /* Sidebar */
+    [class*="SidebarContainer"] {
+      background: #0f0720 !important;
+      border-right: 1px solid rgba(110,69,255,0.15) !important;
+    }
+    [class*="SidebarContainer"] a,
+    [class*="SidebarContainer"] span {
+      color: rgba(255,255,255,0.7) !important;
+    }
+    [class*="SidebarContainer"] a:hover span {
+      color: white !important;
+    }
+
+    /* Top bar */
+    [class*="AppHeaderContent"] {
+      background: #0a0a12 !important;
+      border-bottom: 1px solid rgba(110,69,255,0.15) !important;
+    }
+
+    /* Publish button */
+    [class*="PublishButton"] {
+      background: #7C3AED !important;
+      border-radius: 8px !important;
+    }
+
+    /* General polish */
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    }
+  </style>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.3.3/dist/decap-cms.js"></script>
@@ -17,7 +94,6 @@
       .substring(0, 80);
   };
 
-  // Override the id field to show generated slug as placeholder
   if (window.CMS) {
     CMS.registerEventListener({
       name: 'preSave',
