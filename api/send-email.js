@@ -1,10 +1,9 @@
 var https = require('https');
 var nodemailer = require('nodemailer');
 
-module.exports = function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method not allowed' });
-    return;
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   var body = req.body || {};
@@ -17,54 +16,70 @@ module.exports = function handler(req, res) {
   var message = (body.message || '').trim();
 
   if (!token) {
-    res.status(400).json({ error: 'Missing reCAPTCHA token' });
-    return;
+    return res.status(400).json({ error: 'Missing reCAPTCHA token' });
   }
   if (!name || !phone || !email || !message) {
-    res.status(400).json({ error: 'Missing required fields' });
-    return;
+    return res.status(400).json({ error: 'Missing required fields' });
   }
 
   // Step 1: Verify reCAPTCHA
-  var secret = process.env.RECAPTCHA_SECRET;
-  var postData = 'secret=' + encodeURIComponent(secret) + '&response=' + encodeURIComponent(token);
-
-  var options = {
-    hostname: 'www.google.com',
-    path: '/recaptcha/api/siteverify',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Content-Length': Buffer.byteLength(postData)
+  try {
+    var captchaResult = await verifyRecaptcha(token);
+    if (!captchaResult.success || (captchaResult.score || 0) < 0.5) {
+      console.log('reCAPTCHA failed, score:', captchaResult.score);
+      return res.status(403).json({ success: false, error: 'reCAPTCHA verification failed' });
     }
-  };
+    console.log('reCAPTCHA passed, score:', captchaResult.score);
+  } catch (err) {
+    console.error('reCAPTCHA error:', err.message);
+    return res.status(500).json({ error: 'reCAPTCHA verification failed' });
+  }
 
-  var request = https.request(options, function (response) {
-    var responseBody = '';
-    response.on('data', function (chunk) { responseBody += chunk; });
-    response.on('end', function () {
-      try {
-        var data = JSON.parse(responseBody);
-        if (!data.success || (data.score || 0) < 0.5) {
-          res.status(403).json({ success: false, error: 'reCAPTCHA verification failed' });
-          return;
-        }
-        sendEmails(name, phone, email, company, projectType, message, res);
-      } catch (err) {
-        res.status(500).json({ error: 'reCAPTCHA parse error' });
-      }
-    });
-  });
-
-  request.on('error', function () {
-    res.status(500).json({ error: 'reCAPTCHA verification failed' });
-  });
-
-  request.write(postData);
-  request.end();
+  // Step 2: Send emails
+  try {
+    await sendEmails(name, phone, email, company, projectType, message);
+    console.log('All emails sent successfully');
+    return res.json({ success: true });
+  } catch (err) {
+    console.error('Email error:', err.message);
+    return res.status(500).json({ success: false, error: 'Email sending failed' });
+  }
 };
 
-function sendEmails(name, phone, email, company, projectType, message, res) {
+function verifyRecaptcha(token) {
+  return new Promise(function (resolve, reject) {
+    var secret = process.env.RECAPTCHA_SECRET;
+    var postData = 'secret=' + encodeURIComponent(secret) + '&response=' + encodeURIComponent(token);
+
+    var options = {
+      hostname: 'www.google.com',
+      path: '/recaptcha/api/siteverify',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': Buffer.byteLength(postData)
+      }
+    };
+
+    var request = https.request(options, function (response) {
+      var body = '';
+      response.on('data', function (chunk) { body += chunk; });
+      response.on('end', function () {
+        try {
+          resolve(JSON.parse(body));
+        } catch (err) {
+          reject(new Error('Failed to parse reCAPTCHA response'));
+        }
+      });
+    });
+
+    request.on('error', reject);
+    request.write(postData);
+    request.end();
+  });
+}
+
+async function sendEmails(name, phone, email, company, projectType, message) {
   var transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT, 10) || 465,
@@ -72,8 +87,13 @@ function sendEmails(name, phone, email, company, projectType, message, res) {
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS
-    }
+    },
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 10000
   });
+
+  console.log('SMTP config:', process.env.SMTP_HOST, process.env.SMTP_PORT, process.env.SMTP_USER ? 'user-set' : 'user-missing');
 
   var firstName = name.split(' ')[0];
 
@@ -113,7 +133,7 @@ function sendEmails(name, phone, email, company, projectType, message, res) {
 
     + '<div style="background:#ffffff;border-radius:12px;padding:28px 32px;margin:0 20px;">'
     + '<p style="color:#1a1a2e;font-size:15px;line-height:1.7;margin:0 0 20px;">Dobr\u00fd de\u0148, <strong>' + escHtml(firstName) + '</strong>,</p>'
-    + '<p style="color:#444;font-size:14px;line-height:1.7;margin:0 0 20px;">potvrzujeme prijatie va\u0161ej spr\u00e1vy. N\u00e1\u0161 t\u00edm sa v\u00e1m ozve <strong>do 24 hod\u00edn</strong> v pracovn\u00fdch d\u0148och.</p>'
+    + '<p style="color:#444;font-size:14px;line-height:1.7;margin:0 0 20px;">Potvrzujeme prijatie va\u0161ej spr\u00e1vy. N\u00e1\u0161 t\u00edm sa v\u00e1m ozve <strong>do 24 hod\u00edn</strong> v pracovn\u00fdch d\u0148och.</p>'
 
     + '<div style="background:#f8f7ff;border-radius:8px;padding:16px 20px;margin-bottom:20px;">'
     + '<p style="color:#555;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 8px;font-weight:700;">S\u00fahrn v\u00e1\u0161ho dopytu</p>'
@@ -131,36 +151,26 @@ function sendEmails(name, phone, email, company, projectType, message, res) {
     + '</div>'
   );
 
-  var adminMail = {
+  // Send admin email
+  console.log('Sending admin email...');
+  var adminResult = await transporter.sendMail({
     from: '"BCP Holding" <' + process.env.SMTP_USER + '>',
     to: process.env.SMTP_USER,
     replyTo: email,
     subject: '\u270f\ufe0f Nov\u00fd dopyt: ' + name + (projectType ? ' \u2014 ' + projectType : ''),
     html: adminHtml
-  };
+  });
+  console.log('Admin email sent:', adminResult.response);
 
-  var confirmMail = {
+  // Send confirmation email
+  console.log('Sending confirmation email to:', email);
+  var confirmResult = await transporter.sendMail({
     from: '"BCP HOLDING" <' + process.env.SMTP_USER + '>',
     to: email,
     subject: 'Potvrdenie dopytu \u2014 BCP HOLDING',
     html: confirmHtml
-  };
-
-  // Send both emails
-  transporter.sendMail(adminMail, function (err) {
-    if (err) {
-      console.error('SMTP admin error:', err.message);
-      res.status(500).json({ success: false, error: 'Email sending failed' });
-      return;
-    }
-    transporter.sendMail(confirmMail, function (err2) {
-      if (err2) {
-        console.error('SMTP confirm error:', err2.message);
-        // Admin email was sent, so we still return success
-      }
-      res.json({ success: true });
-    });
   });
+  console.log('Confirmation email sent:', confirmResult.response);
 }
 
 // --- Email template helpers ---
@@ -169,23 +179,17 @@ function wrapper(content) {
   return '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>'
     + '<body style="margin:0;padding:0;background:#f0ecff;font-family:Arial,Helvetica,sans-serif;">'
     + '<div style="max-width:600px;margin:0 auto;padding:20px 0;">'
-
-    // Header with logo text
     + '<div style="text-align:center;padding:16px 0;">'
     + '<span style="font-size:20px;font-weight:800;letter-spacing:0.04em;color:#6e45ff;">BCP</span>'
     + '<span style="font-size:20px;font-weight:300;letter-spacing:0.04em;color:#6e45ff;"> HOLDING</span>'
     + '</div>'
-
-    // Main card
     + '<div style="background:linear-gradient(180deg,#07001f 0%,#0a0028 100%);border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(110,69,255,0.15);">'
     + content
-    // Footer
     + '<div style="text-align:center;padding:20px;border-top:1px solid rgba(255,255,255,0.06);">'
     + '<p style="color:#9895a1;font-size:11px;margin:0;">BCP HOLDING s.r.o. &bull; Elektroin\u0161tal\u00e1cie &bull; KS &bull; EPS &bull; Smart syst\u00e9my</p>'
     + '<p style="color:#9895a1;font-size:11px;margin:4px 0 0;"><a href="https://www.bcpholding.sk" style="color:#a990ff;text-decoration:none;">www.bcpholding.sk</a></p>'
     + '</div>'
     + '</div>'
-
     + '</div></body></html>';
 }
 
