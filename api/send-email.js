@@ -81,12 +81,12 @@ function verifyRecaptcha(token) {
 
 async function sendEmails(name, phone, email, company, projectType, message) {
   var transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT, 10) || 465,
+    host: (process.env.SMTP_HOST || '').trim(),
+    port: parseInt((process.env.SMTP_PORT || '465').trim(), 10),
     secure: true,
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
+      user: (process.env.SMTP_USER || '').trim(),
+      pass: (process.env.SMTP_PASS || '').trim()
     },
     connectionTimeout: 10000,
     greetingTimeout: 10000,
