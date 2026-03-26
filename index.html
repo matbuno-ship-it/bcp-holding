@@ -1453,6 +1453,10 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
           <span class="field-error"></span>
         </div>
         <div class="form-group">
+          <label for="hf-company">Spoločnosť</label>
+          <input type="text" id="hf-company" name="company" placeholder="Názov firmy (nepovinné)" />
+        </div>
+        <div class="form-group">
           <label for="hf-type">Typ projektu</label>
           <select id="hf-type" name="projectType">
             <option value="">Vyberte typ...</option>
@@ -1461,12 +1465,14 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
             <option>Priemyselná hala / sklad</option>
             <option>Verejná infraštruktúra (mesto/obec)</option>
             <option>Rodinný dom</option>
+            <option>Rekonštrukcia existujúcej inštalácie</option>
             <option>Iné</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="hf-message">Popis projektu</label>
-          <textarea id="hf-message" name="message" placeholder="Stručne popíšte váš projekt — rozsah prác, lokalitu, termín..."></textarea>
+          <label for="hf-message">Popis projektu *</label>
+          <textarea id="hf-message" name="message" placeholder="Stručne popíšte váš projekt — rozsah prác, lokalitu, termín a akékoľvek špecifické požiadavky..." required></textarea>
+          <span class="field-error"></span>
         </div>
         <button type="submit" class="btn btn-primary" id="hf-submit" style="width:100%;justify-content:center;font-size:.95rem;">
           Odoslať dopyt
@@ -1915,9 +1921,9 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
               name: document.getElementById('hf-name').value,
               phone: document.getElementById('hf-phone').value,
               email: document.getElementById('hf-email').value,
-              company: '',
+              company: document.getElementById('hf-company').value,
               projectType: document.getElementById('hf-type').value,
-              message: document.getElementById('hf-message').value || 'Dopyt z hlavnej stranky'
+              message: document.getElementById('hf-message').value
             };
         fetch('/api/send-email', {
           method: 'POST',
