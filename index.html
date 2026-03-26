@@ -1910,10 +1910,19 @@ nav.scrolled .logo-icon { margin-right: 0; transform: scale(1.55); }
       if (typeof grecaptcha !== 'undefined') {
         grecaptcha.ready(function() {
       grecaptcha.execute(SITE_KEY, { action: 'contact' }).then(function(token) {
-        fetch('/api/verify-recaptcha', {
+            var formData = {
+              token: token,
+              name: document.getElementById('hf-name').value,
+              phone: document.getElementById('hf-phone').value,
+              email: document.getElementById('hf-email').value,
+              company: '',
+              projectType: document.getElementById('hf-type').value,
+              message: document.getElementById('hf-message').value || 'Dopyt z hlavnej stranky'
+            };
+        fetch('/api/send-email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token: token })
+          body: JSON.stringify(formData)
         })
         .then(function(r) { return r.json(); })
         .then(function(data) {
