@@ -555,10 +555,19 @@ document.querySelectorAll('.faq-q').forEach(function (btn) {
       if (typeof grecaptcha !== 'undefined') {
         grecaptcha.ready(function() {
           grecaptcha.execute(SITE_KEY, { action: 'contact' }).then(function(token) {
-            fetch('/api/verify-recaptcha', {
+            var formData = {
+              token: token,
+              name: document.getElementById('cf-name').value,
+              phone: document.getElementById('cf-phone').value,
+              email: document.getElementById('cf-email').value,
+              company: document.getElementById('cf-company').value,
+              projectType: document.getElementById('cf-type').value,
+              message: document.getElementById('cf-message').value
+            };
+            fetch('/api/send-email', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ token: token })
+              body: JSON.stringify(formData)
             })
             .then(function(r) { return r.json(); })
             .then(function(data) {
