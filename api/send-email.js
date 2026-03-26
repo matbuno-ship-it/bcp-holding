@@ -49,8 +49,7 @@ module.exports = function handler(req, res) {
           res.status(403).json({ success: false, error: 'reCAPTCHA verification failed' });
           return;
         }
-        // Step 2: Send email
-        sendEmail(name, phone, email, company, projectType, message, res);
+        sendEmails(name, phone, email, company, projectType, message, res);
       } catch (err) {
         res.status(500).json({ error: 'reCAPTCHA parse error' });
       }
@@ -65,7 +64,7 @@ module.exports = function handler(req, res) {
   request.end();
 };
 
-function sendEmail(name, phone, email, company, projectType, message, res) {
+function sendEmails(name, phone, email, company, projectType, message, res) {
   var transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT, 10) || 465,
@@ -76,44 +75,143 @@ function sendEmail(name, phone, email, company, projectType, message, res) {
     }
   });
 
-  var htmlBody = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">'
-    + '<h2 style="color:#1a1a2e;border-bottom:2px solid #6c63ff;padding-bottom:10px;">Nov\u00fd dopyt z webu</h2>'
-    + '<table style="width:100%;border-collapse:collapse;">'
-    + row('Meno', name)
-    + row('Telef\u00f3n', phone)
-    + row('E-mail', '<a href="mailto:' + escHtml(email) + '">' + escHtml(email) + '</a>')
-    + (company ? row('Spolo\u010dnos\u0165', company) : '')
-    + (projectType ? row('Typ projektu', projectType) : '')
-    + '</table>'
-    + '<div style="margin-top:20px;padding:15px;background:#f8f9fa;border-radius:8px;border-left:4px solid #6c63ff;">'
-    + '<strong>Spr\u00e1va:</strong><br><br>' + escHtml(message).replace(/\n/g, '<br>')
-    + '</div>'
-    + '<p style="margin-top:20px;font-size:12px;color:#999;">Odoslan\u00e9 z kontaktn\u00e9ho formul\u00e1ra na bcpholding.sk</p>'
-    + '</body></html>';
+  var firstName = name.split(' ')[0];
 
-  var mailOptions = {
-    from: '"BCP Holding web" <' + process.env.SMTP_USER + '>',
+  // --- Admin notification email ---
+  var adminHtml = wrapper(
+    '<div style="text-align:center;padding:30px 0 20px;">'
+    + '<h1 style="color:#ffffff;font-size:22px;margin:0;">Nov\u00fd dopyt z webu</h1>'
+    + '<p style="color:#a990ff;font-size:14px;margin:8px 0 0;">Prijat\u00fd ' + formatDate() + '</p>'
+    + '</div>'
+
+    + '<div style="background:#ffffff;border-radius:12px;padding:28px 32px;margin:0 20px;">'
+    + '<table style="width:100%;border-collapse:collapse;">'
+    + adminRow('Meno', name)
+    + adminRow('Telef\u00f3n', '<a href="tel:' + escHtml(phone) + '" style="color:#6e45ff;text-decoration:none;">' + escHtml(phone) + '</a>')
+    + adminRow('E-mail', '<a href="mailto:' + escHtml(email) + '" style="color:#6e45ff;text-decoration:none;">' + escHtml(email) + '</a>')
+    + (company ? adminRow('Spolo\u010dnos\u0165', company) : '')
+    + (projectType ? adminRow('Typ projektu', '<span style="background:#f0ecff;color:#6e45ff;padding:3px 10px;border-radius:20px;font-size:13px;font-weight:600;">' + escHtml(projectType) + '</span>') : '')
+    + '</table>'
+
+    + '<div style="margin-top:20px;padding:16px 20px;background:#f8f7ff;border-radius:8px;border-left:4px solid #6e45ff;">'
+    + '<p style="color:#555;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 8px;font-weight:700;">Spr\u00e1va</p>'
+    + '<p style="color:#1a1a2e;font-size:14px;line-height:1.7;margin:0;">' + escHtml(message).replace(/\n/g, '<br>') + '</p>'
+    + '</div>'
+
+    + '<div style="text-align:center;padding-top:24px;">'
+    + '<a href="mailto:' + escHtml(email) + '" style="display:inline-block;background:#6e45ff;color:#ffffff;padding:12px 32px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;">Odpoveda\u0165 z\u00e1kazn\u00edkovi</a>'
+    + '</div>'
+    + '</div>'
+  );
+
+  // --- Confirmation email to customer ---
+  var confirmHtml = wrapper(
+    '<div style="text-align:center;padding:30px 0 20px;">'
+    + '<h1 style="color:#ffffff;font-size:22px;margin:0;">\u010eakujeme za v\u00e1\u0161 dopyt!</h1>'
+    + '<p style="color:#3dfd98;font-size:14px;margin:8px 0 0;">V\u00e1\u0161 dopyt sme \u00faspe\u0161ne prijali</p>'
+    + '</div>'
+
+    + '<div style="background:#ffffff;border-radius:12px;padding:28px 32px;margin:0 20px;">'
+    + '<p style="color:#1a1a2e;font-size:15px;line-height:1.7;margin:0 0 20px;">Dobr\u00fd de\u0148, <strong>' + escHtml(firstName) + '</strong>,</p>'
+    + '<p style="color:#444;font-size:14px;line-height:1.7;margin:0 0 20px;">potvrzujeme prijatie va\u0161ej spr\u00e1vy. N\u00e1\u0161 t\u00edm sa v\u00e1m ozve <strong>do 24 hod\u00edn</strong> v pracovn\u00fdch d\u0148och.</p>'
+
+    + '<div style="background:#f8f7ff;border-radius:8px;padding:16px 20px;margin-bottom:20px;">'
+    + '<p style="color:#555;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 8px;font-weight:700;">S\u00fahrn v\u00e1\u0161ho dopytu</p>'
+    + '<table style="width:100%;border-collapse:collapse;">'
+    + confirmRow('Typ projektu', projectType || '\u2014')
+    + confirmRow('Spr\u00e1va', escHtml(message).replace(/\n/g, '<br>'))
+    + '</table>'
+    + '</div>'
+
+    + '<div style="background:linear-gradient(135deg,#07001f,#0a0028);border-radius:10px;padding:20px 24px;text-align:center;">'
+    + '<p style="color:#a990ff;font-size:13px;margin:0 0 4px;font-weight:600;">Medzit\u00fdm n\u00e1s m\u00f4\u017eete kontaktova\u0165</p>'
+    + '<p style="margin:8px 0 4px;"><a href="tel:+421910455300" style="color:#3dfd98;text-decoration:none;font-size:16px;font-weight:700;">+421 910 455 300</a></p>'
+    + '<p style="margin:4px 0 0;"><a href="mailto:info@bcpholding.sk" style="color:#a990ff;text-decoration:none;font-size:13px;">info@bcpholding.sk</a></p>'
+    + '</div>'
+    + '</div>'
+  );
+
+  var adminMail = {
+    from: '"BCP Holding" <' + process.env.SMTP_USER + '>',
     to: process.env.SMTP_USER,
     replyTo: email,
-    subject: 'Nov\u00fd dopyt z webu: ' + name,
-    html: htmlBody
+    subject: '\u270f\ufe0f Nov\u00fd dopyt: ' + name + (projectType ? ' \u2014 ' + projectType : ''),
+    html: adminHtml
   };
 
-  transporter.sendMail(mailOptions, function (err) {
+  var confirmMail = {
+    from: '"BCP HOLDING" <' + process.env.SMTP_USER + '>',
+    to: email,
+    subject: 'Potvrdenie dopytu \u2014 BCP HOLDING',
+    html: confirmHtml
+  };
+
+  // Send both emails
+  transporter.sendMail(adminMail, function (err) {
     if (err) {
-      console.error('SMTP error:', err.message);
+      console.error('SMTP admin error:', err.message);
       res.status(500).json({ success: false, error: 'Email sending failed' });
-    } else {
-      res.json({ success: true });
+      return;
     }
+    transporter.sendMail(confirmMail, function (err2) {
+      if (err2) {
+        console.error('SMTP confirm error:', err2.message);
+        // Admin email was sent, so we still return success
+      }
+      res.json({ success: true });
+    });
   });
+}
+
+// --- Email template helpers ---
+
+function wrapper(content) {
+  return '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>'
+    + '<body style="margin:0;padding:0;background:#f0ecff;font-family:Arial,Helvetica,sans-serif;">'
+    + '<div style="max-width:600px;margin:0 auto;padding:20px 0;">'
+
+    // Header with logo text
+    + '<div style="text-align:center;padding:16px 0;">'
+    + '<span style="font-size:20px;font-weight:800;letter-spacing:0.04em;color:#6e45ff;">BCP</span>'
+    + '<span style="font-size:20px;font-weight:300;letter-spacing:0.04em;color:#6e45ff;"> HOLDING</span>'
+    + '</div>'
+
+    // Main card
+    + '<div style="background:linear-gradient(180deg,#07001f 0%,#0a0028 100%);border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(110,69,255,0.15);">'
+    + content
+    // Footer
+    + '<div style="text-align:center;padding:20px;border-top:1px solid rgba(255,255,255,0.06);">'
+    + '<p style="color:#9895a1;font-size:11px;margin:0;">BCP HOLDING s.r.o. &bull; Elektroin\u0161tal\u00e1cie &bull; KS &bull; EPS &bull; Smart syst\u00e9my</p>'
+    + '<p style="color:#9895a1;font-size:11px;margin:4px 0 0;"><a href="https://www.bcpholding.sk" style="color:#a990ff;text-decoration:none;">www.bcpholding.sk</a></p>'
+    + '</div>'
+    + '</div>'
+
+    + '</div></body></html>';
+}
+
+function adminRow(label, value) {
+  return '<tr>'
+    + '<td style="padding:10px 0;color:#9895a1;font-size:13px;font-weight:600;width:120px;vertical-align:top;border-bottom:1px solid #f0ecff;">' + label + '</td>'
+    + '<td style="padding:10px 0;color:#1a1a2e;font-size:14px;border-bottom:1px solid #f0ecff;">' + value + '</td>'
+    + '</tr>';
+}
+
+function confirmRow(label, value) {
+  return '<tr>'
+    + '<td style="padding:6px 0;color:#9895a1;font-size:12px;font-weight:600;width:110px;vertical-align:top;">' + label + '</td>'
+    + '<td style="padding:6px 0;color:#1a1a2e;font-size:13px;line-height:1.6;">' + value + '</td>'
+    + '</tr>';
 }
 
 function escHtml(str) {
   return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function row(label, value) {
-  return '<tr><td style="padding:8px 12px;font-weight:bold;color:#555;width:140px;vertical-align:top;">' + label + '</td>'
-    + '<td style="padding:8px 12px;">' + value + '</td></tr>';
+function formatDate() {
+  var d = new Date();
+  var days = ['nede\u013ea','pondelok','utorok','streda','\u0161tvrtok','piatok','sobota'];
+  var months = ['janu\u00e1ra','febru\u00e1ra','marca','apr\u00edla','m\u00e1ja','j\u00fana','j\u00fala','augusta','septembra','okt\u00f3bra','novembra','decembra'];
+  return days[d.getDay()] + ' ' + d.getDate() + '. ' + months[d.getMonth()] + ' ' + d.getFullYear() + ', ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
 }
+
+function pad(n) { return n < 10 ? '0' + n : '' + n; }
